@@ -7,9 +7,19 @@ export default {
   ],
   theme: {
     extend: {
+      keyframes: {
+        scaleUp: {
+          '0%': { transform: 'scale(1)' },
+          '50%': { transform: 'scale(1.2)' },
+          '100%': { transform: 'scale(1)' },
+        },
+      },
+      animation: {
+        scaleUp: 'scaleUp 2s ease-out forwards',
+      },
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        background: "var(--background)", // Custom background color using CSS variables
+        foreground: "var(--foreground)", // Custom foreground color using CSS variables
       },
     },
   },
