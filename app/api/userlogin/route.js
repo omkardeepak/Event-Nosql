@@ -1,9 +1,11 @@
 import pool from "@/lib/db";
 
 export async function POST(req) {
+    var pass='';
   // Extract data from the request body
-  const { username, email, password } = await req.json(); // Since POST data is usually in the body
-  if (!username || !email || !password) {
+  const {  email, password } = await req.json(); // Since POST data is usually in the body
+  
+  if (!email || !password) {
     return new Response(
       JSON.stringify({ message: 'All fields are required'}),
       {
@@ -11,28 +13,31 @@ export async function POST(req) {
       }
     );
   }
-
   // Insert data into the database
-  try {
+ 
     const result = await pool.query(
-      'INSERT INTO host_data (host_name, email_id, password) VALUES ($1, $2, $3)',
-      [username, email, password] 
+      'SELECT * FROM user_data',[]
     );
     
 
     // Get the newly created user (optional)
-
-    // Respond with success message
+     result.rows.forEach(async (detail) => {
+        if (detail.email_id ==email ) {
+            pass=detail.pass_word;
+        }}) 
+        if(pass==password){// Respond with success message
     return new Response(
-      JSON.stringify({ message: 'User registered successfully'}),
+        
+      JSON.stringify({ message: 'Successfully logged in'}),
       {
         status: 201,
       }
     );
-  } catch (error) {
+    } 
+  else {
     // Handle any errors
     return new Response(
-      JSON.stringify({ message: 'Database Error', error: error.message }),
+      JSON.stringify({ message: 'Incorrect email id or password' }),
       {
         status: 500,
       }

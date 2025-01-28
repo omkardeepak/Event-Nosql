@@ -11,12 +11,11 @@ export async function POST(req) {
       }
     );
   }
-
   // Insert data into the database
   try {
     const result = await pool.query(
-      'INSERT INTO host_data (host_name, email_id, password) VALUES ($1, $2, $3)',
-      [username, email, password] 
+      'INSERT INTO user_data (user_name, email_id, pass_word) VALUES ($1, $2, $3)',
+      [username, email, password]
     );
     
 
@@ -32,7 +31,7 @@ export async function POST(req) {
   } catch (error) {
     // Handle any errors
     return new Response(
-      JSON.stringify({ message: 'Database Error', error: error.message }),
+      JSON.stringify({ message: 'All details are required.', error: error.message }),
       {
         status: 500,
       }
