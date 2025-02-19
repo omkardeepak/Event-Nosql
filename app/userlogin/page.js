@@ -35,11 +35,12 @@ const Login = () => {
     
         // Set response message based on the API response
         console.log(data.message || 'Query was successful!');
-    
+        const username = data.hostname;
+
         // Optionally, navigate to another page after successful registration
         if (response.ok) {
           alert(" Successfully Logged In!")
-          router.push('/'); // Redirect to home page or any other success page
+          router.push(`/userhome?username=${encodeURIComponent(username)}`); // Redirect to home page or any other success page
         } else {
           alert(data.message );
         }

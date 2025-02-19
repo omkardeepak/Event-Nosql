@@ -2,6 +2,8 @@ import pool from "@/lib/db";
 
 export async function POST(req) {
     var pass='';
+    var username='';
+
   // Extract data from the request body
   const {  email, password } = await req.json(); // Since POST data is usually in the body
   
@@ -25,11 +27,12 @@ export async function POST(req) {
      result.rows.forEach(async (detail) => {
         if (detail.email_id ==email ) {
             pass=detail.password;
+            username=detail.host_name;
         }}) 
         if(pass==password){// Respond with success message
     return new Response(
         
-      JSON.stringify({ message: 'Successfully logged in'}),
+      JSON.stringify({ message: 'Successfully logged in' ,hostname:username}),
       {
         status: 201,
       }
