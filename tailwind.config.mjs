@@ -21,6 +21,9 @@ export default {
         background: "var(--background)", // Custom background color using CSS variables
         foreground: "var(--foreground)",
         'white-light':'#FFFFFF30', // Custom foreground color using CSS variables
+        'cream':'#F4E9BE',
+        'lightblue':'#5FA09D',
+        'darkblue':'#055254',
       },
     },
   },

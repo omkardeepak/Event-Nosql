@@ -2,8 +2,8 @@
 
 export default function Navbar(){
     return (
-        <header className="flex justify-between items-center p-7 border-b  h-20 border-gray-700">
-          <nav className="flex space-x-4">
+        <header className="flex justify-between bg-lightblue items-center p-7 border-b  h-20 border-gray-700">
+          <nav className="flex space-x-4 ">
             <a href="#" className="text-sm font-medium hover:underline">
               Events
             </a>
