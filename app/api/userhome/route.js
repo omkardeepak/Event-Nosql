@@ -15,7 +15,7 @@ export async function POST(req) {
   try {
     console.log(event)
     const result = await pool.query(
-      'INSERT INTO participants (name, email_address, mobile_number, linkedin_id , event) VALUES ($1, $2, $3, $4, $5)',
+      'INSERT INTO participants (name, email_address, mobile_number, linkedin_id , event_name) VALUES ($1, $2, $3, $4, $5)',
       [pname, email, mobno, linkedin, event] 
     );
     

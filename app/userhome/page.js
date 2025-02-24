@@ -2,17 +2,23 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Navbar from '../components/navbar';
+import { useRouter } from 'next/navigation';
 
 export default function EventsPage() {
+      const router = useRouter(); // Initialize useRouter
 
   const [pname, setPname] = useState('');
     const [email, setEmail] = useState('');
     const [mobno, setMobno] = useState('');
     const [linkedin, setLinkedin] = useState('');
+    const searchParams = useSearchParams();
 
+    const username = searchParams.get('username'); 
 
   
-
+const handleProfile =()=>{
+  router.push(`/discover?username=${encodeURIComponent(username)}`);
+}
 
     const handlePnameChange = (e) => {
       setPname(e.target.value);
@@ -33,8 +39,6 @@ export default function EventsPage() {
 
   const [events, setEvents] = useState([]);
 
-  const searchParams = useSearchParams();
-        const username = searchParams.get('username'); 
 
   // Example of fetching events from a database (replace with your fetch logic)
   useEffect(() => {
@@ -92,26 +96,41 @@ export default function EventsPage() {
   };
 
     return (
-      <div className="min-h-screen bg-gradient-to-b from-black via-black to-violet-900 text-gray-100">
-         <Navbar/>
+      <div className="min-h-screen bg-cream text-darkblue">
         
+        <header className="flex justify-between text-white bg-lightblue items-center p-7 border-b  h-20 border-gray-700">
+          <nav className="flex space-x-4 ">
+            <a href="#" className="text-sm font-medium hover:underline">
+              Events
+            </a>
+            <a href="#" className="text-sm font-medium hover:underline">
+              Calendars
+            </a>
+            <button onClick={handleProfile}  className="text-sm font-medium hover:underline">
+              Discover
+            </button>
+          </nav>
+          <a href="/">
+          <button className="text-sm font-medium">Log out</button>
+          </a>
+        </header>
         
         <main className="p-6">
           <h1 className="text-2xl font-bold mb-4">Events</h1>
   
-          <div className="h-44  w-full flex justify-center items-center text-7xl font-mono">
+          <div className="h-44  w-full flex justify-center items-center text-7xl font-mono  text-darkblue">
       <h1>Welcome, {username}!</h1>      
       </div>
 
       <div className="flex flex-col justify-center items-center w-full">
-        <div className="w-1/2 left-28 h-auto flex-row m-3 justify-center rounded-xl p-6">
+        <div className="w-1/2 left-28 h-auto flex-row m-3 justify-center rounded-xl p-6 ">
           {events.length > 0 ? (
             events.map((event) => (
               <div
                 key={event.event_name}
                 className={`w-full transition-all duration-500 ease-in-out ${
                   expandedEvent === event.event_name ? 'h-96' : 'h-60'
-                }  p-3 flex flex-col  border-2 rounded-2xl mb-9 bg-transparent`}
+                }  p-3 flex flex-col  border-2 bg-[#438478] rounded-2xl mb-9`}
               >
                 <div className={`  ${
                   expandedEvent === event.event_name ? 'hidden' : 'flex flex-row w-full h-full'
@@ -212,7 +231,7 @@ export default function EventsPage() {
                 {expandedEvent === event.event_name && (
                   <div className='h-full w-full flex justify-center items-center flex-col'>
                   
-                    <div  className="rounded-lg  grid grid-cols-1 md:grid-cols-2 gap-8 h-full w-full  bg-gradient-to-t from-black via-slate-900 to-emerald-500 ">
+                    <div  className="rounded-lg  grid grid-cols-1 md:grid-cols-2 gap-8 h-full w-full  bg-transparent">
                               {/* Left Section */}
                               <div>
                                 {/* <Image 
@@ -222,22 +241,22 @@ export default function EventsPage() {
                                   height={200}
                                   className="rounded-lg m-4"
                                 /> */}
-                                <h2 className="text-lg font-semibold m-4">Event Name</h2>
-                                <p className="text-gray-600 m-4">
-                                  The extra space enables you to double your seating and provides a unique dining experience.
+                                <h2 className="text-lg font-semibold m-4 text-white">Event Name</h2>
+                                <p className="text-neutral-100 m-4">
+                                  Join us for an exciting Hackathon where creativity meets technology! This event is designed to bring together tech enthusiasts, developers, and innovators to build solutions that can shape the future. Whether you're a beginner or an experienced coder, this Hackathon is the perfect platform to showcase your skills, collaborate with like-minded individuals.
                                 </p>
                                
                               </div>
                     
                               {/* Right Section - Form */}
                               <div >
-                                <h3 className="mt-4 text-lg font-bold">Register</h3>
+                                <h3 className="mt-4 mb-4 text-lg font-bold">Register</h3>
                                 <form onSubmit={handleRegistration}>
-                                <div className=" grid grid-cols-2 gap-4 mt-2 w-96">
-                                  <input type="text" placeholder="Name" className="mt-4 input-field " value={pname} onChange={handlePnameChange} /><br></br>
-                                  <input type="email" placeholder="Email address" className="input-field" value={email}  onChange={handleEmailChange}/><br></br>
-                                  <input type="text" placeholder="Mob. no" className="input-field" value={mobno} onChange={handleMobnoChange}/><br></br>
-                                  <input type="text" placeholder="Linkedin ID" className="input-field" value={linkedin} onChange={handleLinkedinChange}/>
+                                <div className=" grid grid-cols-1 mr-12 ">
+                                  <input type="text" placeholder="Name" className="mt-1 input-field bg-black placeholder-white bg-opacity-35 rounded-lg h-8 text-white px-3 w-full " value={pname} onChange={handlePnameChange} /><br></br>
+                                  <input type="email" placeholder="Email address" className="-mt-2 input-field bg-black placeholder-white bg-opacity-35 rounded-lg h-8 text-white px-3 w-full " value={email}  onChange={handleEmailChange}/><br></br>
+                                  <input type="text" placeholder="Mob. no" className="-mt-2 input-field bg-black placeholder-white bg-opacity-35 rounded-lg h-8 text-white px-3 w-full " value={mobno} onChange={handleMobnoChange}/><br></br>
+                                  <input type="text" placeholder="Linkedin ID" className="-mt-2 input-field bg-black placeholder-white bg-opacity-35 rounded-lg h-8 text-white px-3 w-full " value={linkedin} onChange={handleLinkedinChange}/>
                                   <input
         type="hidden"
         name="event_name"
@@ -245,7 +264,7 @@ export default function EventsPage() {
       />
                     
                                 </div>
-                                <button className="w-60 bg-black text-white py-2 mt-6 rounded-lg" type='submit'>Request Booking</button>
+                                <button className=" bg-black text-white py-2 mt-6 w-64 rounded-lg" type='submit'>Register</button>
 
                                 </form>
                     
