@@ -11,6 +11,10 @@ export default function EventsPage() {
     const [email, setEmail] = useState('');
     const [mobno, setMobno] = useState('');
     const [linkedin, setLinkedin] = useState('');
+    const [emailError, setEmailError] = useState('');
+    const [phoneError, setPhoneError] = useState('');
+
+    
     const searchParams = useSearchParams();
 
     const username = searchParams.get('username'); 
@@ -26,11 +30,28 @@ const handleProfile =()=>{
   
     const handleEmailChange = (e) => {
       setEmail(e.target.value);
+      const emailRegex = /^[^\s@]+@(gmail\.com|hotmail\.com|yahoo\.com|outlook\.com)$/;
+      if (!emailRegex.test(e.target.value)) {
+        setEmailError('Please enter a valid email address');
+      } else {
+        setEmailError('');
+      }
     };
   
     const handleMobnoChange = (e) => {
       setMobno(e.target.value);
-    };
+
+
+    // Regex for exactly 10 digits
+    const phoneRegex = /^\d{10}$/;
+
+    if (!phoneRegex.test(e.target.value)) {
+      setPhoneError('10 digits required');
+    } else {
+      setPhoneError('');
+    }
+  };
+    
       
     const handleLinkedinChange = (e) => {
       setLinkedin(e.target.value);
@@ -254,8 +275,26 @@ const handleProfile =()=>{
                                 <form onSubmit={handleRegistration}>
                                 <div className=" grid grid-cols-1 mr-12 ">
                                   <input type="text" placeholder="Name" className="mt-1 input-field bg-black placeholder-white bg-opacity-35 rounded-lg h-8 text-white px-3 w-full " value={pname} onChange={handlePnameChange} /><br></br>
-                                  <input type="email" placeholder="Email address" className="-mt-2 input-field bg-black placeholder-white bg-opacity-35 rounded-lg h-8 text-white px-3 w-full " value={email}  onChange={handleEmailChange}/><br></br>
-                                  <input type="text" placeholder="Mob. no" className="-mt-2 input-field bg-black placeholder-white bg-opacity-35 rounded-lg h-8 text-white px-3 w-full " value={mobno} onChange={handleMobnoChange}/><br></br>
+                                  <div>
+                                <input
+                                  type="email"
+                                  placeholder="email-id"
+                                  className="mt-1 input-field bg-black placeholder-white bg-opacity-35 rounded-lg h-8 text-white px-3 w-full "
+                                  onChange={handleEmailChange}
+                                  value={email}
+                                />
+                                {emailError && <p className="text-red-500 text-sm -mb-2">{emailError}</p>}
+                              </div><br></br>
+                              <div className="mb-7">
+        <input
+          type="tel"
+          placeholder="phone number"
+          className="mt-1 input-field bg-black placeholder-white bg-opacity-35 rounded-lg h-8 text-white px-3 w-full"
+          onChange={handleMobnoChange}
+          value={mobno}
+        />
+        {phoneError && <p className="text-red-500 -mb-2">{phoneError}</p>}
+      </div>
                                   <input type="text" placeholder="Linkedin ID" className="-mt-2 input-field bg-black placeholder-white bg-opacity-35 rounded-lg h-8 text-white px-3 w-full " value={linkedin} onChange={handleLinkedinChange}/>
                                   <input
         type="hidden"
@@ -264,7 +303,7 @@ const handleProfile =()=>{
       />
                     
                                 </div>
-                                <button className=" bg-black text-white py-2 mt-6 w-64 rounded-lg" type='submit'>Register</button>
+                                <button className=" bg-black text-white py-2 mt-3 w-64 rounded-lg" type='submit'>Register</button>
 
                                 </form>
                     

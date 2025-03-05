@@ -1,31 +1,32 @@
 "use client"
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/navbar';
-import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
- // Assuming you have a Navbar component
 
- const DiscoverPage = () => {
-   const [events, setEvents] = useState([]); // Initialize events as an empty array
- const searchParams = useSearchParams();
-       const username = searchParams.get('username'); 
-    
-   useEffect(() => {
-     async function fetchEvents() {
-       try {
-         const response = await fetch('/api/discover?username=exampleUser');
-         const data = await response.json();
-         if (data && data.events) {
-           setEvents(data.events); // Ensure events are set
-         }
-       } catch (error) {
-         console.error('Error fetching events:', error);
-       }
-     }
- 
-     fetchEvents();
-   }, []);
- 
+const DiscoverPage = () => {
+  const [events, setEvents] = useState([]); // Initialize events as an empty array
+  const searchParams = useSearchParams();
+  const username = searchParams.get('username');
+
+  useEffect(() => {
+    async function fetchEvents() {
+      try {
+        const response = await fetch(`/api/discover?username=${username}`);
+        const data = await response.json();
+        console.log(data); // Check the structure of the received data
+        if (data && data.length > 0) { // Check if data is not empty
+          setEvents(data); // Directly set data (no need for data.events)
+        }
+      } catch (error) {
+        console.error('Error fetching events:', error);
+      }
+    }
+
+    if (username) {
+      fetchEvents();
+    }
+  }, [username]);
+
   return (
     <div className='bg-white h-screen w-full'>
       <Navbar />
@@ -51,17 +52,21 @@ import { useSearchParams } from 'next/navigation';
 
           {/* Display the event data */}
           <div className='mt-6 w-full px-4'>
-          {events && events.length > 0 ? ( // Add a check for events
-        <ul className='space-y-4'>
-          {events.map((event, index) => (
-            <li key={index} className='bg-gray-100 p-4 rounded-lg shadow'>
-              {event.event}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No events found.</p> // Fallback for no events
-      )}
+            {events && events.length > 0 ? ( // Add a check for events
+              <ul className='space-y-4'>
+                {events.map((event, index) => (
+                  <li key={index} className='bg-gray-100 text-black p-4 rounded-lg shadow'>
+                    <p><strong>Event:</strong> {event.event_name}</p>
+                    <p><strong>Date:</strong> {event.date}</p>
+                    <p><strong>Time:</strong> {event.time}</p>
+                    <p><strong>Location:</strong> {event.loc}</p>
+                    <p><strong>Description:</strong> {event.des}</p>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className='text-black'>No events found.</p> // Fallback for no events
+            )}
           </div>
         </div>
       </div>

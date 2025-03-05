@@ -7,6 +7,9 @@ const Home = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+
     const router = useRouter(); // Initialize useRouter
   
     const handleNameChange = (e) => {
@@ -15,10 +18,22 @@ const Home = () => {
   
     const handleEmailChange = (e) => {
       setEmail(e.target.value);
+      const emailRegex = /^[^\s@]+@(gmail\.com|hotmail\.com|yahoo\.com|outlook\.com)$/;
+      if (!emailRegex.test(e.target.value)) {
+        setEmailError('Please enter a valid email address');
+      } else {
+        setEmailError('');
+      }
     };
   
     const handlePasswordChange = (e) => {
       setPassword(e.target.value);
+
+    if (e.target.value.length < 5) {
+      setPasswordError('Password must contain min 5 char');
+    } else {
+      setPasswordError('');
+    }
     };
   
     // Handle form submit
@@ -41,7 +56,7 @@ const Home = () => {
       // Optionally, navigate to another page after successful registration
       if (response.ok) {
         alert("Registered Successfully !")
-        router.push('/'); // Redirect to home page or any other success page
+        router.push(`/userhome?username=${encodeURIComponent(username)}`); // Redirect to home page or any other success page
       } else {
         alert('Registration failed: ' + data.message);
       }
@@ -80,7 +95,16 @@ const Home = () => {
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
   <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"/>
 </svg>
-          <input placeholder="email-id" className="rounded-md p-2 border-2 border-neutral-400" onChange={handleEmailChange}></input>
+<div>
+      <input
+        type="email"
+        placeholder="email-id"
+        className="rounded-md p-2 border-2 border-neutral-400"
+        onChange={handleEmailChange}
+        value={email}
+      />
+      {emailError && <p className="text-red-500 text-sm">{emailError}</p>}
+    </div>
           </div>
           
           <div className="space-x-2 text-black flex flex-row items-center">
@@ -88,7 +112,16 @@ const Home = () => {
   <path d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8m4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5"/>
   <path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
 </svg>
-          <input placeholder="password" className="rounded-md p-2 border-neutral-400 border-2" onChange={handlePasswordChange}></input>
+<div className="mt-1">
+        <input
+          type="password"
+          placeholder="password"
+          className="rounded-md p-2 border-2 border-neutral-400"
+          onChange={handlePasswordChange}
+          value={password}
+        />
+        {passwordError && <p className="text-red-500 text-sm">{passwordError}</p>}
+      </div>
           </div>
           <div className="flex justify-center pt-5">
           <div className=" flex justify-center border-2 border-neutral-600 bg-neutral-200 h-14 w-40 items-center hover:scale-105">

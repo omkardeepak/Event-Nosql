@@ -17,13 +17,13 @@ export async function GET(req) {
       // Query database with the extracted username
       const result = await pool.query(
         `SELECT u.name, e.event_name, e.date, e.time, e.loc, e.des  
-FROM participants u
-INNER JOIN events e
+FROM events e
+INNER JOIN participants u
 ON u.event_name = e.event_name
-WHERE u.name =$1;`,
+WHERE u.name = $1;`,
         [username] // Use the username in the query
       );
-      console.log(result.rows);
+      // console.log(result.rows);
 
       // Return the result as JSON
       return new Response(JSON.stringify(result.rows), {
