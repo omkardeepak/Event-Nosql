@@ -1,53 +1,36 @@
-import React from "react";
+'use client';
 
-const Home = () => {
+import Image from 'next/image';
+
+export default function EventLanding() {
   return (
-    <div className="bg-[#f4e9bc] flex justify-center items-center h-screen w-full">
-  <div className="flex h-full w-full">
-    {/* Left Section */}
-    <div className="flex-[1] bg-[#f4e9bc] text-[#5fa09f] p-10 flex flex-col justify-center items-center space-y-6"> {/* Reduced space between elements */}
-      <h1 className="text-5xl font-extrabold font-serif text-[#5fa09f] pb-16  text-center">Host an event</h1>
+    <div className="flex flex-col md:flex-row items-center justify-between min-h-screen bg-gradient-to-br from-gray-100 to-pink-100 px-4 py-8">
+      {/* Left Content */}
+      <div className="text-center m-10 md:text-left max-w-lg">
+        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
+          Delightful events <br />
+          <span className="bg-gradient-to-r from-blue-500 to-pink-500 bg-clip-text text-transparent">
+            start here.
+          </span>
+        </h1>
+        <p className="text-gray-600 mt-4 text-lg">
+          Set up an event page, invite friends, and sell tickets. Host a memorable event today.
+        </p>
+        <button className="mt-6 px-6 py-3 bg-black text-white text-lg font-semibold rounded-lg shadow-md transition-transform hover:scale-105 hover:bg-gray-800">
+          create your first event
+        </button>
+        <button className="mt-6 m-4 px-6 py-3 bg-black text-white text-lg font-semibold rounded-lg shadow-md transition-transform hover:scale-105 hover:bg-gray-800">
+          explore event
+        </button>
+      </div>
       
-      {/* Image inserted here */}
-      <img src="/host1.png" alt="Event Hosting" className="w-98 h-48 object-contain mx-auto animate-scaleUp" />
-      <a href="/hostsignup">
-      <button className="bg-[#60a09f] text-[#ffffff] font-serif font-semibold px-6 py-4 rounded shadow hover:bg-transparent" >
-        Sign up as host
-      </button>
-      </a>
-      
-      <p className="text-sm text-[#045453] font-serif text-center pt-10 flex flex-col">
-        Already have an account?{" "}
-        <a href="/hostlogin" className="underline">
-          Login here
-        </a>
-      </p>
-    </div>
-
-      
-
-        {/* Right Section */}
-        <div className="flex-[1]  bg-[#045453] text-black p-10 flex flex-col justify-center items-center space-y-6"> {/* Reduced space between elements */}
-      <h1 className="text-5xl text-[#f4e9bc] font-serif pb-16 font-extrabold text-center">Join an event</h1>
-      
-      {/* Image inserted here */}
-      <img src="/user.png" alt="Event Hosting" className="w-98 h-48 object-contain mx-auto animate-scaleUp" />
-      <a href="/usersignup">
-      <button className="bg-[#f4e9bc] font-serif text-black font-semibold px-6 py-4 rounded shadow hover:bg-[white]">
-        Sign up as user
-      </button>
-      </a>
-      
-      <p className="text-sm text-[#f4e9bc] font-serif text-center pt-10 flex flex-col">
-        Already have an account?{" "}
-        <a href="/userlogin" className="underline">
-          Login here
-        </a>
-      </p>
-    </div>
+      {/* Right Content - Image */}
+      <div className="relative w-1/2 h-1/2 md:w-1/2 md:h-1/2 mt-10 md:mt-0">
+       <video autoPlay muted loop
+       src="\land summer.webm"> 
+        
+       </video>
       </div>
     </div>
   );
-};
-
-export default Home;
+}
