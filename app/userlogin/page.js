@@ -52,7 +52,7 @@ const Login = () => {
         </div>
   <div className="w-5/6  shadow-2xl h-1/2 flex items-center justify-center flex-row  z-20 ">
 <div className=" bg-black bg-opacity-5  border-2 w-2/3 h-full left-0 rounded-l-md pl-20 pt-16">
-<div className="flex flex-col font-extrabold font-serif text-6xl z-20 h-full ">
+<div className="flex flex-col font-extrabold font-serif text-6xl z-20 h-full text-cream ">
                 <span>Login to</span><span>explore and </span><span>book</span><span>your seat!</span>
             </div>
 </div>
@@ -61,7 +61,7 @@ const Login = () => {
 <div className="flex flex-col space-y-2 w-full justify-center items-center h-full bg-black bg-opacity-5  border-2 rounded-r-xl shadow-2xl z-20 pb-7 ">
 <form onSubmit={handleSubmit}>
 
-<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" fill="currentColor" class="bi bi-person-fill" className="w-full justify-center flex" viewBox="0 0 16 16">
   <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
 </svg>
             <div className="space-y-4  ">

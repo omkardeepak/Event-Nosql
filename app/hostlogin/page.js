@@ -52,7 +52,7 @@ const Login = () => {
         </div>
   <div className="w-5/6  shadow-2xl h-1/2 flex items-center justify-center flex-row  z-20 ">
 <div className=" bg-black bg-opacity-5  border-2 w-2/3 h-full left-0 rounded-l-md pl-20 pt-16">
-<div className="flex flex-col font-extrabold font-serif text-6xl z-20 h-full ">
+<div className="flex flex-col font-extrabold font-serif text-6xl z-20 h-full text-cream">
                 <span>Login to</span><span>bring</span><span>your </span><span>events to  life!</span>
             </div>
 </div>

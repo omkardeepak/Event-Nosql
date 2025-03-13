@@ -28,10 +28,10 @@ const DiscoverPage = () => {
   }, [username]);
 
   return (
-    <div className='bg-white h-screen w-full'>
+    <div className='bg-cream h-screen w-full'>
       <Navbar />
 
-      <div className='bg-white rounded-lg shadow-lg h-full w-full'>
+      <div className='bg-cream rounded-lg shadow-lg h-full w-full'>
         <div className='text-right'>
           <button
             className='text-gray-600 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-400 rounded'
@@ -49,13 +49,14 @@ const DiscoverPage = () => {
           <h2 className='text-2xl font-bold text-gray-900 hover:text-blue-600 cursor-pointer transition-colors'>
             {username}
           </h2>
+          <h3 className="text-black text-3xl left-5 absolute top-52">Registered Events:</h3>
 
           {/* Display the event data */}
           <div className='mt-6 w-full px-4'>
             {events && events.length > 0 ? ( // Add a check for events
               <ul className='space-y-4'>
                 {events.map((event, index) => (
-                  <li key={index} className='bg-gray-100 text-black p-4 rounded-lg shadow'>
+                  <li key={index} className='bg-darkblue text-white p-4 rounded-lg shadow'>
                     <p><strong>Event:</strong> {event.event_name}</p>
                     <p><strong>Date:</strong> {event.date}</p>
                     <p><strong>Time:</strong> {event.time}</p>

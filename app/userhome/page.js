@@ -150,10 +150,10 @@ const handleProfile =()=>{
               <div
                 key={event.event_name}
                 className={`w-full transition-all duration-500 ease-in-out ${
-                  expandedEvent === event.event_name ? 'h-96' : 'h-60'
+                  expandedEvent === event.event_name ? 'h-96' : 'h-52'
                 }  p-3 flex flex-col  border-2 bg-[#438478] rounded-2xl mb-9`}
               >
-                <div className={`  ${
+                <div className={`  ${~
                   expandedEvent === event.event_name ? 'hidden' : 'flex flex-row w-full h-full'
                 }  `}>
                 {/* Left Side */}
@@ -225,7 +225,7 @@ const handleProfile =()=>{
                 <div className="w-1/2 right-0 flex flex-col items-center space-y-4">
                   <div className="w-full h-3/4 bg-gray-200"></div>
                   <button
-                    className="bg-red-600 text-white rounded-full p-2 flex flex-row hover:scale-105"
+                    className="bg-yellow-600 text-white rounded-full p-2 flex flex-row hover:scale-105"
                     onClick={() => handleViewMore(event.event_name)}
                   >
                     {expandedEvent === event.event_name ? 'Show Less' : 'View More'}

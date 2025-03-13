@@ -66,17 +66,17 @@ const Home = () => {
     <div className="bg-gray-100 flex justify-center items-center h-screen w-full">
       <div className="flex w-full h-full">
         {/* Left Section */}
-        <div className="flex-[2] bg-blue-600 text-white p-10 flex flex-col justify-center items-center space-y-60">
+        <div className="flex-[2] bg-cream text-white p-10 flex flex-col justify-center items-center space-y-60">
           <div className="h-full w-full z-0 absolute object-contain overflow-hidden">
             <Image src="/leme.png" alt="sf" width={1100} height={9000} />
           </div>
-          <div className="flex flex-col font-extrabold font-serif text-8xl z-20 h-full pb-44">
+          <div className="flex flex-col text-darkblue font-extrabold font-serif text-8xl z-20 h-full pb-44">
             <span>Create your</span><span> account</span><span>and </span><span>get started!</span>
           </div>
         </div>
 
         {/* Right Section */}
-        <div className="flex-[1] bg-blue-100 text-white p-10 flex flex-col justify-center items-center space-y-20">
+        <div className="flex-[1] bg-darkblue text-white p-10 flex flex-col justify-center items-center space-y-20">
           <div className="h-full w-1/3 z-0 absolute object-contain overflow-hidden right-0">
             <Image src="/abstract.png" alt="sf" width={500} height={200} className="flex justify-center items-center mt-40" />
           </div>

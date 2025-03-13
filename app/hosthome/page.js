@@ -86,7 +86,7 @@ export default function Home() {
             <input
               type="text"
               placeholder="Event name"
-              className="w-full px-3 py-2 border rounded-lg shadow-sm border-hidden bg-inherit placeholder-darkblue text-5xl font-serif focus:outline-none " onChange={handleNameChange}
+              className="w-full px-3 py-2 border rounded-lg shadow-sm border-hidden bg-inherit placeholder-darkblue text-5xl font-serif focus:outline-none text-black " onChange={handleNameChange}
             />
           </div>
 
@@ -100,7 +100,7 @@ export default function Home() {
               type="date"
               
               placeholder="Starting date"
-              className=" font-mono font-Lexend px-3 py-2  rounded-2xl shadow-sm focus:outline-none border-hidden bg-inherit  text-darkblue border-2 backdrop-blur-0 w-1/2 " onChange={handleDateChange}
+              className=" font-mono font-Lexend px-3 py-2 rounded-2xl shadow-sm focus:outline-none border-hidden bg-inherit  text-darkblue border-2 backdrop-blur-0 w-1/2 " onChange={handleDateChange} min={new Date().toISOString().split("T")[0]}
             />
           </div>
 
@@ -112,7 +112,7 @@ export default function Home() {
             <input
               type="time"
               placeholder="Start time"
-              className="font-mono px-3 py-2  rounded-2xl shadow-sm focus:outline-none border-hidden bg-inherit text-darkblue border-2 backdrop-blur-0 w-1/2" onChange={handleTimeChange}
+              className="font-mono px-3 py-2  rounded-2xl shadow-sm focus:outline-none border-hidden bg-inherit text-darkblue border-2 backdrop-blur-0 w-1/2 " onChange={handleTimeChange}
             />
           </div>
            {/* location */}
@@ -123,12 +123,12 @@ export default function Home() {
             <input
               type="text"
               placeholder="Add location"
-              className="font-mono px-3 py-2  rounded-2xl  focus:outline-none border-hidden bg-inherit  placeholder-darkblue border-2 backdrop-blur-0 w-full h-16" onChange={handleLocationChange}
+              className="font-mono px-3 py-2  text-black rounded-2xl  focus:outline-none border-hidden bg-inherit  placeholder-darkblue border-2 backdrop-blur-0 w-full h-16" onChange={handleLocationChange}
             />
           </div>
 
           {/* Description */}
-          <div className="mb-4 flex bg-white-light  border-[rgb(255,255,255,0.2)] rounded-2xl">
+          <div className="mb-4 flex bg-white-light  text-black border-[rgb(255,255,255,0.2)] rounded-2xl">
             <label className=" block  text-slate-50 font-medium mb-2 ">
               
             </label>
@@ -140,7 +140,7 @@ export default function Home() {
           </div>
 
           {/* Price */}
-          <div className="mb-4 flex bg-white-light  border-[rgb(255,255,255,0.2)] rounded-2xl">
+          {/* <div className="mb-4 flex bg-white-light  border-[rgb(255,255,255,0.2)] rounded-2xl">
             <label className="block  text-slate-50 font-medium mb-2">
               
             </label>
@@ -149,10 +149,10 @@ export default function Home() {
               placeholder="Price"
               className=" font-mono px-3 py-2  rounded-2xl shadow-sm focus:outline-none border-hidden bg-inherit placeholder-darkblue border-2 backdrop-blur-0 w-full"
             />
-          </div>
+          </div> */}
 
           {/* Capacity */}
-          <div className="mb-4 flex bg-white-light  border-[rgb(255,255,255,0.2)] rounded-2xl">
+          {/* <div className="mb-4 flex bg-white-light  border-[rgb(255,255,255,0.2)] rounded-2xl">
             <label className="block  text-slate-50 font-medium mb-2">
               
             </label>
@@ -161,10 +161,10 @@ export default function Home() {
               placeholder="Capacity"
               className=" font-mono px-3 py-2  rounded-2xl shadow-sm focus:outline-none border-hidden bg-inherit placeholder-darkblue border-2 backdrop-blur-0 w-full"
             />
-          </div>
+          </div> */}
           <button
         
-        className="px-4 py-2 bg-lightblue text-cream font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 w-full" type="submit"
+        className="px-4 py-2 bg-lightblue text-darkblue font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 w-full" type="submit"
       >
         CREATE EVENT
       </button>
