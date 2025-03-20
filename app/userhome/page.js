@@ -117,7 +117,7 @@ const handleProfile =()=>{
   };
 
     return (
-      <div className="min-h-screen bg-cream text-darkblue">
+      <div className="min-h-screen bg-neutral-900 text-darkblue">
         
         <header className="flex justify-between text-white bg-lightblue items-center p-7 border-b  h-20 border-gray-700">
           <nav className="flex space-x-4 ">
@@ -136,214 +136,206 @@ const handleProfile =()=>{
           </a>
         </header>
         
-        <main className="p-6">
-          <h1 className="text-2xl font-bold mb-4">Events</h1>
+        <main className="">
   
-          <div className="h-44  w-full flex justify-center items-center text-7xl font-mono  text-darkblue">
-      <h1>Welcome, {username}!</h1>      
-      </div>
+        <div className="relative h-[600px] w-full overflow-hidden">
+  {/* Background Video */}
+  <video
+    src="/userhomevid.mp4"
+    autoPlay
+    loop
+    muted
+    className="h-full w-full object-cover object-top"
+  ></video>
 
-      <div className="flex flex-col justify-center items-center w-full">
-        <div className="w-1/2 left-28 h-auto flex-row m-3 justify-center rounded-xl p-6 ">
-          {events.length > 0 ? (
-            events.map((event) => (
-              <div
-                key={event.event_name}
-                className={`w-full transition-all duration-500 ease-in-out ${
-                  expandedEvent === event.event_name ? 'h-96' : 'h-52'
-                }  p-3 flex flex-col  border-2 bg-[#438478] rounded-2xl mb-9`}
-              >
-                <div className={`  ${~
-                  expandedEvent === event.event_name ? 'hidden' : 'flex flex-row w-full h-full'
-                }  `}>
-                {/* Left Side */}
-                <div className="w-1/2">
-                  <div className="w-full font-mono mb-7 m-2 rounded-lg">
-                    <h3 className="text-white text-4xl">{event.event_name}</h3>
-                  </div>
+  {/* Gradient Blur Overlay */}
+  <div className="absolute inset-0 bg-gradient-to-r  text-white justify-center items-center flex  text-8xl flex-col font-bold ">EXPLORE EVENTS<span className='mt-20 text-4xl font-semibold'>Discover Upcoming Events and Join the Excitement!
 
-                  <div className="w-full flex flex-row">
-                    <div className="w-full m-1 rounded-lg">
-                      <div className="text-white flex flex-row items-center">
-                        <div className="mr-3">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            fill="currentColor"
-                            className="bi bi-calendar-event"
-                            viewBox="0 0 16 16"
-                          >
-                            <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z" />
-                            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z" />
-                          </svg>
-                        </div>
-                        {event.date.split('T')[0]}
-                      </div>
-                    </div>
 
-                    <div className="w-full m-1 rounded-lg">
-                      <p className="text-white flex flex-row items-center">
-                        <div className="mr-3">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            fill="currentColor"
-                            className="bi bi-alarm"
-                            viewBox="0 0 16 16"
-                          >
-                            <path d="M8.5 5.5a.5.5 0 0 0-1 0v3.362l-1.429 2.38a.5.5 0 1 0 .858.515l1.5-2.5A.5.5 0 0 0 8.5 9z" />
-                            <path d="M6.5 0a.5.5 0 0 0 0 1H7v1.07a7.001 7.001 0 0 0-3.273 12.474l-.602.602a.5.5 0 0 0 .707.708l.746-.746A6.97 6.97 0 0 0 8 16a6.97 6.97 0 0 0 3.422-.892l.746.746a.5.5 0 0 0 .707-.708l-.601-.602A7.001 7.001 0 0 0 9 2.07V1h.5a.5.5 0 0 0 0-1zm1.038 3.018a6 6 0 0 1 .924 0 6 6 0 1 1-.924 0M0 3.5c0 .753.333 1.429.86 1.887A8.04 8.04 0 0 1 4.387 1.86 2.5 2.5 0 0 0 0 3.5M13.5 1c-.753 0-1.429.333-1.887.86a8.04 8.04 0 0 1 3.527 3.527A2.5 2.5 0 0 0 13.5 1" />
-                          </svg>
-                        </div>
-                        {event.time.slice(0, 5)}
-                      </p>
-                    </div>
-                  </div>
 
-                  <div className="w-full m-1 rounded-lg">
-                    <p className="text-white flex flex-row items-center">
-                      <div className="mr-2">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          fill="currentColor"
-                          className="bi bi-geo-alt-fill"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
-                        </svg>
-                      </div>
-                      {event.loc}
-                    </p>
-                  </div>
-                </div>
 
-                {/* Right Side */}
-                <div className="w-1/2 right-0 flex flex-col items-center space-y-4">
-                  <div className="w-full h-3/4 bg-gray-200"></div>
-                  <button
-                    className="bg-yellow-600 text-white rounded-full p-2 flex flex-row hover:scale-105"
-                    onClick={() => handleViewMore(event.event_name)}
-                  >
-                    {expandedEvent === event.event_name ? 'Show Less' : 'View More'}
-                    <div className="flex items-center ml-2">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        fill="currentColor"
-                        className="bi bi-arrow-right-short"
-                        viewBox="0 0 16 16"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 1 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-                        />
-                      </svg>
-                    </div>
-                  </button>
-                </div>
-                </div>
 
-                {/* Expanded Content */}
-                {expandedEvent === event.event_name && (
-                  <div className='h-full w-full flex justify-center items-center flex-col'>
-                  
-                    <div  className="rounded-lg  grid grid-cols-1 md:grid-cols-2 gap-8 h-full w-full  bg-transparent">
-                              {/* Left Section */}
-                              <div>
-                                {/* <Image 
-                                  src="/download.jpg" // Ensure this image exists in your public folder
-                                  alt="Outdoor Delicacy"
-                                  width={400}
-                                  height={200}
-                                  className="rounded-lg m-4"
-                                /> */}
-                                <h2 className="text-lg font-semibold m-4 text-white">Event Name</h2>
-                                <p className="text-neutral-100 m-4">
-                                  Join us for an exciting Hackathon where creativity meets technology! This event is designed to bring together tech enthusiasts, developers, and innovators to build solutions that can shape the future. Whether you're a beginner or an experienced coder, this Hackathon is the perfect platform to showcase your skills, collaborate with like-minded individuals.
-                                </p>
-                               
-                              </div>
-                    
-                              {/* Right Section - Form */}
-                              <div >
-                                <h3 className="mt-4 mb-4 text-lg font-bold">Register</h3>
-                                <form onSubmit={handleRegistration}>
-                                <div className=" grid grid-cols-1 mr-12 ">
-                                  <input type="text" placeholder="Name" className="mt-1 input-field bg-black placeholder-white bg-opacity-35 rounded-lg h-8 text-white px-3 w-full " value={pname} onChange={handlePnameChange} /><br></br>
-                                  <div>
-                                <input
-                                  type="email"
-                                  placeholder="email-id"
-                                  className="mt-1 input-field bg-black placeholder-white bg-opacity-35 rounded-lg h-8 text-white px-3 w-full "
-                                  onChange={handleEmailChange}
-                                  value={email}
-                                />
-                                {emailError && <p className="text-red-500 text-sm -mb-2">{emailError}</p>}
-                              </div><br></br>
-                              <div className="mb-7">
-        <input
-          type="tel"
-          placeholder="phone number"
-          className="mt-1 input-field bg-black placeholder-white bg-opacity-35 rounded-lg h-8 text-white px-3 w-full"
-          onChange={handleMobnoChange}
-          value={mobno}
-        />
-        {phoneError && <p className="text-red-500 -mb-2">{phoneError}</p>}
-      </div>
-                                  <input type="text" placeholder="Linkedin ID" className="-mt-2 input-field bg-black placeholder-white bg-opacity-35 rounded-lg h-8 text-white px-3 w-full " value={linkedin} onChange={handleLinkedinChange}/>
-                                  <input
-        type="hidden"
-        name="event_name"
-        value={event.event_name}
-      />
-                    
-                                </div>
-                                <button className=" bg-black text-white py-2 mt-3 w-64 rounded-lg" type='submit'>Register</button>
 
-                                </form>
-                    
-                                {/* <h3 className="text-lg font-semibold mt-6">Payment details</h3> */}
-                                
-                    
-                              </div>
-                            </div>
-                    
-                  
-                  <button
-                    className="bg-red-600 text-white rounded-full w-32 p-2 flex flex-row hover:scale-105"
-                    onClick={() => handleViewMore(event.event_name)}
-                  >
-                    {expandedEvent === event.event_name ? 'Show Less' : 'View More'}
-                    <div className="flex items-center ml-2">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        fill="currentColor"
-                        className="bi bi-arrow-right-short"
-                        viewBox="0 0 16 16"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 1 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-                        />
-                      </svg>
-                    </div>
-                  </button>
+
+</span><div className='absolute bottom-7'><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
+  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293z"/>
+</svg></div></div>
+  
+</div> 
+
+
+      <h1 className="text-4xl flex ml-28 text-gray-100 font-bold p-12">Events</h1>
+
+      <div className="flex  flex-col justify-center items-center w-full">
+        
+      <div className="w-5/6 left-28 h-auto flex-row m-3 grid grid-cols-2 gap-10 justify-center rounded-xl p-6 ">
+  {events.length > 0 ? (
+    events.map((event) => (
+      <div
+        key={event.event_name}
+        className={`w-full h-full transition-all duration-500 ease-in-out ${
+          expandedEvent === event.event_name ? 'h-full ' : 'h-72'
+        }  p-3 flex flex-col  bg-neutral-700 rounded-2xl mb-9`}
+      >
+        <div
+          className={`${
+            expandedEvent === event.event_name ? 'hidden' : 'flex flex-row w-full h-full'
+          }`}
+        >
+          {/* Left Side */}
+          <div className="w-1/2">
+            <div className="w-full font-mono mb-7 m-2 rounded-lg">
+              <h3 className="text-white text-4xl">{event.event_name}</h3>
+            </div>
+
+            <div className="w-full flex flex-col">
+              <div className="w-full m-1 rounded-lg">
+                <div className="text-white flex flex-row items-center">
+                <div className="mr-3 w-10 h-10">
+                    {/* Time Icon */}
+                    <img src="https://img.freepik.com/free-vector/calendar-remider-date-isolated-icon_24877-83379.jpg?semt=ais_hybrid"></img>
+
                   </div>
                   
-                )}
+    {(() => {
+      const eventDate = new Date(event.date);
+      const formattedDate = eventDate.toLocaleDateString('en-US', {
+        weekday: 'long', // This adds the full day name
+        month: 'long',
+        day: 'numeric'
+      });
+      return formattedDate;
+    })()}
+                </div>
               </div>
-            ))
-          ) : (
-            <p>No events available at the moment.</p>
-          )}
+
+              <div className="w-full m-1 rounded-lg">
+                <p className="text-white flex flex-row items-center">
+                  <div className="mr-3 w-10 h-10">
+                    {/* Time Icon */}
+                    <img src="https://img.icons8.com/ios11/512/FFFFFF/clock.png"></img>
+
+                  </div>
+                  {event.time.slice(0, 5)}
+                </p>
+              </div>
+            </div>
+
+            <div className="w-full m-1 rounded-lg">
+              <p className="text-white flex flex-row items-center">
+                <div className="mr-2 w-10 h-10">
+                  {/* Location Icon */}
+                  <img src="https://cdn2.iconfinder.com/data/icons/social-media-2259/512/google-512.png"></img>
+                </div>
+                {event.loc}
+              </p>
+            </div>
+          </div>
+
+          {/* Right Side */}
+          <div className="w-1/2 right-0 flex flex-col items-center space-y-4">
+            <div className="w-full h-4/5 bg-gray-200"></div>
+            <button
+              className="bg-yellow-600 text-white rounded-full p-2 flex flex-row hover:scale-105"
+              onClick={() => handleViewMore(event.event_name)}
+            >
+              {expandedEvent === event.event_name ? 'Show Less' : 'View More'}
+            </button>
+          </div>
         </div>
+
+        {/* Expanded Content in Modal */}
+        {expandedEvent === event.event_name && (
+  <div
+    className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50"
+    onClick={() => setExpandedEvent(null)} // Close the modal when clicking outside
+  >
+    <div
+      className="bg-white w-11/12 md:w-3/5 rounded-lg p-6 relative max-h-[90vh] overflow-y-auto"
+      onClick={(e) => e.stopPropagation()} // Prevent modal close on content click
+    >
+      <button
+        className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-2"
+        onClick={() => setExpandedEvent(null)}
+      >
+        X
+      </button>
+
+      <div className="rounded-lg grid grid-cols-1 md:grid-cols-2 gap-8 h-full w-full bg-transparent">
+        {/* Left Section */}
+        <div className="overflow-y-auto max-h-[60vh]">
+          <img className="w-full h-40 object-cover mb-4" alt="Event" />
+          <h2 className="text-lg font-semibold m-4 text-black">{event.event_name}</h2>
+          <p className="text-neutral-700 m-4">
+            Join us for an exciting Hackathon where creativity meets technology! This event
+            is designed to bring together tech enthusiasts, developers, and innovators to
+            build solutions that can shape the future. Whether you're a beginner or an
+            experienced coder, this Hackathon is the perfect platform to showcase your
+            skills.
+          </p>
+        </div>
+
+        {/* Right Section - Form */}
+        <div className="overflow-y-auto max-h-[60vh]">
+          <h3 className="mt-4 mb-4 text-lg font-bold">Register</h3>
+          <form onSubmit={handleRegistration}>
+            <div className="grid grid-cols-1 mr-12">
+              <input
+                type="text"
+                placeholder="Name"
+                className="mt-1 input-field bg-gray-100 rounded-lg h-8 text-black px-3 w-full"
+                value={pname}
+                onChange={handlePnameChange}
+              />
+              <br />
+              <div>
+                <input
+                  type="email"
+                  placeholder="Email"
+                  className="mt-1 input-field bg-gray-100 rounded-lg h-8 text-black px-3 w-full"
+                  onChange={handleEmailChange}
+                  value={email}
+                />
+                {emailError && <p className="text-red-500 text-sm -mb-2">{emailError}</p>}
+              </div>
+              <br />
+              <div className="mb-7">
+                <input
+                  type="tel"
+                  placeholder="Phone number"
+                  className="mt-1 input-field bg-gray-100 rounded-lg h-8 text-black px-3 w-full"
+                  onChange={handleMobnoChange}
+                  value={mobno}
+                />
+                {phoneError && <p className="text-red-500 -mb-2">{phoneError}</p>}
+              </div>
+              <input
+                type="text"
+                placeholder="LinkedIn ID"
+                className="input-field bg-gray-100 rounded-lg h-8 text-black px-3 w-full"
+                value={linkedin}
+                onChange={handleLinkedinChange}
+              />
+              <input type="hidden" name="event_name" value={event.event_name} />
+            </div>
+            <button className="bg-black text-white py-2 mt-3 w-64 rounded-lg" type="submit">
+              Register
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
+
+      </div>
+    ))
+  ) : (
+    <p>No events available at the moment.</p>
+  )}
+</div>
+
       </div>
         </main>
       </div>

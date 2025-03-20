@@ -67,6 +67,9 @@ export default function Home() {
       <div className="h-44 bg-cream text-darkblue w-full flex justify-center items-center text-7xl font-mono">
       <h1>Welcome, {username}!</h1>      
       </div>
+      <div className="relative min-h-screen bg-gray-950 flex justify-center items-center  z-0  " >
+        <img className="z-30" src="http://www.w3.org/2000/svg"></img>
+      </div>
     
     <div className="relative min-h-screen bg-cream flex justify-center items-center  z-0  " >
         <div>

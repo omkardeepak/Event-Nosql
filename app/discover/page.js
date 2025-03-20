@@ -28,38 +28,42 @@ const DiscoverPage = () => {
   }, [username]);
 
   return (
-    <div className='bg-cream h-screen w-full'>
+    <div className='bg-neutral-900 h-screen w-full'>
       <Navbar />
 
-      <div className='bg-cream rounded-lg shadow-lg h-full w-full'>
-        <div className='text-right'>
-          <button
-            className='text-gray-600 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-400 rounded'
-            onClick={() => {}}
-          >
-            ×
-          </button>
+      <div className='bg-neutral-900 rounded-lg shadow-lg h-full w-full'>
+        <div className='text-right mb-10'>
+         
         </div>
         <div className='flex flex-col items-center'>
           <img
             src="https://static.vecteezy.com/system/resources/thumbnails/005/544/718/small_2x/profile-icon-design-free-vector.jpg"
             alt='User avatar'
-            className='w-24 h-24 rounded-full shadow-md mb-4'
+            className='w-24 h-24 rounded-full shadow-md mb-2'
           />
-          <h2 className='text-2xl font-bold text-gray-900 hover:text-blue-600 cursor-pointer transition-colors'>
+          <h2 className='text-2xl font-bold text-gray-100 hover:text-blue-600 cursor-pointer transition-colors'>
             {username}
           </h2>
-          <h3 className="text-black text-3xl left-5 absolute top-52">Registered Events:</h3>
+          <h3 className="text-gray-100 text-3xl left-5 absolute top-52 mt-12">Registered Events:</h3>
 
           {/* Display the event data */}
-          <div className='mt-6 w-full px-4'>
+          <div className='mt-16 w-full px-4'>
             {events && events.length > 0 ? ( // Add a check for events
               <ul className='space-y-4'>
                 {events.map((event, index) => (
                   <li key={index} className='bg-darkblue text-white p-4 rounded-lg shadow'>
                     <p><strong>Event:</strong> {event.event_name}</p>
-                    <p><strong>Date:</strong> {event.date}</p>
-                    <p><strong>Time:</strong> {event.time}</p>
+                    <p><strong>Date:</strong>{(() => {
+      const eventDate = new Date(event.date);
+      const formattedDate = eventDate.toLocaleDateString('en-US', {
+        weekday: 'long', // This adds the full day name
+        month: 'long',
+        day: 'numeric'
+      });
+      return formattedDate;
+    })()}</p>
+                    <p><strong>Time:</strong>                  {event.time.slice(0, 5)}
+                    </p>
                     <p><strong>Location:</strong> {event.loc}</p>
                     <p><strong>Description:</strong> {event.des}</p>
                   </li>

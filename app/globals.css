@@ -1,7 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Orbitron:wght@400..900&family=Racing+Sans+One&family=Rajdhani:wght@300;400;500;600;700&family=Rampart+One&family=Roboto:ital,wght@0,100..900;1,100..900&family=Zen+Dots&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rampart+One&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Zen+Dots&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Rajdhani:wght@300;400;500;600;700&family=Zen+Dots&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&family=Orbitron:wght@400..900&family=Rajdhani:wght@300;400;500;600;700&family=Zen+Dots&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&family=Orbitron:wght@400..900&family=Racing+Sans+One&family=Rajdhani:wght@300;400;500;600;700&family=Zen+Dots&display=swap");
 
+@import url('https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Orbitron:wght@400..900&family=Racing+Sans+One&family=Rajdhani:wght@300;400;500;600;700&family=Zen+Dots&display=swap');
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -13,7 +21,11 @@
     --foreground: #ededed;
   }
 }
-
+*{
+  font-family: "Rampart One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
 body {
   color: var(--foreground);
   background: var(--background);

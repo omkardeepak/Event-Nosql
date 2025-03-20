@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 export default {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -7,7 +8,19 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        zenDots: ['"Zen Dots"', 'sans-serif'],
+        Rajdhani: ['"Rajdhani"', 'sans-serif'],
+        Orbitron: ['"Orbitron"', 'sans-serif'],
+        Goldman:['"Goldman"', 'sans-serif'],
+        RacingSansOne:['"Racing Sans One"', 'serif'],
+        Fb: ['Formulab', 'sans-serif'],
+        Fn: ['Formulan', 'sans-serif'],
+        Fw: ['Formulaw', 'sans-serif'],
+        Inter: ['Inter', 'sans-serif'],
+      },
       keyframes: {
+
         scaleUp: {
           '0%': { transform: 'scale(1)' },
           '50%': { transform: 'scale(1.2)' },
@@ -17,6 +30,7 @@ export default {
       animation: {
         scaleUp: 'scaleUp 2s ease-out forwards',
       },
+
       colors: {
         background: "var(--background)", // Custom background color using CSS variables
         foreground: "var(--foreground)",
