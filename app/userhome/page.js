@@ -21,7 +21,10 @@ export default function EventsPage() {
 
   
 const handleProfile =()=>{
-  router.push(`/discover?username=${encodeURIComponent(username)}`);
+  router.push(`/discoveruser?username=${encodeURIComponent(username)}`);
+}
+const handleFeedback =()=>{
+  router.push(`/userfeedback?username=${encodeURIComponent(username)}`);
 }
 
     const handlePnameChange = (e) => {
@@ -124,9 +127,9 @@ const handleProfile =()=>{
             <a href="#" className="text-sm font-medium hover:underline">
               Events
             </a>
-            <a href="#" className="text-sm font-medium hover:underline">
-              Calendars
-            </a>
+            <button onClick={handleFeedback}  className="text-sm font-medium hover:underline">
+              Feedback
+            </button>
             <button onClick={handleProfile}  className="text-sm font-medium hover:underline">
               Discover
             </button>

@@ -11,7 +11,7 @@ const DiscoverPage = () => {
   useEffect(() => {
     async function fetchEvents() {
       try {
-        const response = await fetch(`/api/discover?username=${username}`);
+        const response = await fetch(`/api/discoveruser?username=${username}`);
         const data = await response.json();
         console.log(data); // Check the structure of the received data
         if (data && data.length > 0) { // Check if data is not empty
@@ -44,16 +44,16 @@ const DiscoverPage = () => {
           <h2 className='text-2xl font-bold text-gray-100 hover:text-blue-600 cursor-pointer transition-colors'>
             {username}
           </h2>
-          <h3 className="text-gray-100 text-3xl left-5 absolute top-52 mt-12">Registered Events:</h3>
+          <h3 className="text-gray-100 text-3xl left-16 absolute top-52 mt-12">Registered Events:</h3>
 
           {/* Display the event data */}
-          <div className='mt-16 w-full px-4'>
+          <div className='mt-16 w-1/2 px-4'>
             {events && events.length > 0 ? ( // Add a check for events
               <ul className='space-y-4'>
                 {events.map((event, index) => (
-                  <li key={index} className='bg-darkblue text-white p-4 rounded-lg shadow'>
-                    <p><strong>Event:</strong> {event.event_name}</p>
-                    <p><strong>Date:</strong>{(() => {
+                  <li key={index} className='bg-darkblue pl-7 text-white p-4 rounded-lg shadow'>
+                    <h1 className='text-4xl'> {event.event_name}</h1>
+                    <p className='text-lg'>{(() => {
       const eventDate = new Date(event.date);
       const formattedDate = eventDate.toLocaleDateString('en-US', {
         weekday: 'long', // This adds the full day name
@@ -62,11 +62,16 @@ const DiscoverPage = () => {
       });
       return formattedDate;
     })()}</p>
-                    <p><strong>Time:</strong>                  {event.time.slice(0, 5)}
+                    <p><strong></strong>                  {event.time.slice(0, 5)}
                     </p>
-                    <p><strong>Location:</strong> {event.loc}</p>
-                    <p><strong>Description:</strong> {event.des}</p>
+                    <p><strong></strong> {event.loc}</p>
+
+                    <p className='flex flex-row w-full'><strong></strong> {event.des}
+                    </p>
+                    {/* <p className=''><strong></strong> {event.des}</p> */}
+
                   </li>
+                  
                 ))}
               </ul>
             ) : (

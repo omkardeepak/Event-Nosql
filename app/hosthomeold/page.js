@@ -62,35 +62,16 @@ export default function Home() {
   
   return (
     //bg-[url('/bg.jpg')]
-    <div className="bg-gradient-to-br from-gray-100 to-pink-100" >
-       <nav className="bg-gray-800 text-gray-300 px-6 py-2 flex items-center justify-between">
-      {/* Left Side */}
-      <div className="flex items-center gap-6">
-        <span className="text-gray-200 text-lg">✦</span> {/* Star Icon */}
-        <div className="flex items-center gap-4">
-          <label>events</label>
-          <label>calender</label>
-          <label>discover</label>
-        </div>
-      </div>
-
-      {/* Right Side */}
-      <div className="flex items-center gap-4">
-        <span className="text-sm">9:39 PM GMT+5:30</span>
-        <button className="text-white">Create Event</button>
-        
-       
-        <div className="w-8 h-8 bg-green-300 rounded-full"></div> {/* Profile Icon */}
-      </div>
-    </nav>
-      
-      {/* <Navbar/> */}
-      <div className="h-44  text-darkblue w-full flex justify-center items-center text-7xl font-mono">
+    <div>
+      <Navbar/>
+      <div className="h-44 bg-cream text-darkblue w-full flex justify-center items-center text-7xl font-mono">
       <h1>Welcome, {username}!</h1>      
       </div>
-      
+      <div className="relative min-h-screen bg-gray-950 flex justify-center items-center  z-0  " >
+        <img className="z-30" src="http://www.w3.org/2000/svg"></img>
+      </div>
     
-     <div className="relative min-h-screen  flex justify-center items-center  z-0  " >
+    <div className="relative min-h-screen bg-cream flex justify-center items-center  z-0  " >
         <div>
           
         </div>

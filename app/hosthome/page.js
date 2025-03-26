@@ -1,11 +1,36 @@
 'use client';
-import { useState } from "react";
+import { useState,useCallback } from "react";
 import React from 'react';
 import { useSearchParams } from 'next/navigation';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import Navbar from "../components/navbar";
+import { GoogleMap, LoadScript, Autocomplete, Marker } from '@react-google-maps/api';
+
+const mapContainerStyle = {
+  width: '100%',
+  height: '400px', // or any height you need
+};
+
+
+// Define map center position (default center)
+const center = {
+  lat: 9.9312, // Default latitude (Kochi example)
+  lng: 76.2673, // Default longitude (Kochi example)
+};
 
 export default function Home() {
+
+
+  // Load Google Maps script
+  
+
+  const router = useRouter(); // Step 2: Initialize the router
+
+
+  const [map, setMap] = useState(null);
+  const [position, setPosition] = useState(center);
+  const [autocomplete, setAutocomplete] = useState(null);
+
       const [name, setName] = useState('');
       const [date, setDate] = useState('');
       const [time, setTime] = useState('');
@@ -13,7 +38,7 @@ export default function Home() {
       const [desc, setDesc] = useState('');
 
       const searchParams = useSearchParams();
-      const username = searchParams.get('username'); 
+      const hostname = searchParams.get('hostname'); 
    
       
   const handleNameChange = (e) => {
@@ -58,20 +83,79 @@ export default function Home() {
       alert('Registration failed: ' + data.message);
     }
   };
+
+  const feedback =()=>{
+    router.push(`/hostfeedback?hostname=${encodeURIComponent(hostname)}`);
+  }
+  const Home =()=>{
+    router.push(`/hosthome?hostname=${encodeURIComponent(hostname)}`);
+  }
   
+  const onLoad = useCallback((autocompleteInstance) => {
+    setAutocomplete(autocompleteInstance);
+  }, []);
+
+  const onPlaceChanged = () => {
+    if (autocomplete !== null) {
+      const place = autocomplete.getPlace();
+      if (place.geometry) {
+        const newPosition = {
+          lat: place.geometry.location.lat(),
+          lng: place.geometry.location.lng(),
+        };
+        setPosition(newPosition);
+        console.log("Selected place:", newPosition);
+      } else {
+        alert("No details available for the selected place.");
+      }
+    }
+  };
+
   
   return (
     //bg-[url('/bg.jpg')]
-    <div>
-      <Navbar/>
-      <div className="h-44 bg-cream text-darkblue w-full flex justify-center items-center text-7xl font-mono">
-      <h1>Welcome, {username}!</h1>      
+    <div className="bg-gradient-to-br from-gray-100 to-pink-100" >
+       <nav className="bg-gray-800 text-gray-300 px-6 py-2 flex items-center justify-between">
+      {/* Left Side */}
+      <div className="flex items-center gap-6">
+        <span className="text-gray-200 text-lg">✦</span> {/* Star Icon */}
+        <div className="flex items-center gap-4">
+        <button onClick={Home}>Home</button>
+        <button onClick={feedback}>Feedback</button>
+          <label>Discover</label>
+        </div>
       </div>
-      <div className="relative min-h-screen bg-gray-950 flex justify-center items-center  z-0  " >
-        <img className="z-30" src="http://www.w3.org/2000/svg"></img>
+
+      {/* Right Side */}
+      <div className="flex items-center gap-4">
+        <span className="text-sm">9:39 PM GMT+5:30</span>
+        <button className="text-white">Create Event</button>
+        
+       
+        <div className="w-8 h-8 bg-green-300 rounded-full"></div> {/* Profile Icon */}
       </div>
+    </nav>
+      
+      {/* <Navbar/> */}
+      {/* <div className="h-44  text-darkblue w-full flex ml-20 items-center text-4xl font-mono">
+      </div> */}
+
+
+    <div className='flex flex-col items-center justify-center h-screen  p-6'>
+      <div className=''>
+        <div className='text-center p-8'>
+          <h1 className='text-2xl font-bold text-gray-800 mb-6'>Kickstart your event journey—Create and manage your event effortlessly!</h1>
+          <a href="#create" className='px-6 py-3 bg-indigo-600 text-white text-lg rounded-xl hover:bg-indigo-500'>
+            + Create Event
+          </a>
+        </div>
+      </div>
+    </div>
+
+
+      
     
-    <div className="relative min-h-screen bg-cream flex justify-center items-center  z-0  " >
+     <div className="relative min-h-screen  flex justify-center items-center  z-0  " id="create" >
         <div>
           
         </div>
@@ -140,6 +224,30 @@ export default function Home() {
               placeholder="Description"
               className=" font-mono px-3 py-2  rounded-2xl shadow-sm focus:outline-none border-hidden bg-inherit placeholder-darkblue border-2 backdrop-blur-0 w-full h-16" onChange={handleDescriptionChange}
             />
+
+        <LoadScript googleMapsApiKey="AIzaSyAD29iSH3YnIj8Ybs3_bzjgUaXd_ThCjYY" libraries={['places']}>
+        <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
+          <input
+            type="text"
+            placeholder="Search for a place"
+            style={{
+              width: '100%',
+              height: '40px',
+              padding: '10px',
+              marginBottom: '10px',
+            }}
+          />
+        </Autocomplete>
+
+        <GoogleMap
+          mapContainerStyle={mapContainerStyle}
+          center={position}
+          zoom={14}
+          onLoad={setMap}
+        >
+          {position && <Marker position={position} />}
+        </GoogleMap>
+      </LoadScript>
           </div>
 
           {/* Price */}
