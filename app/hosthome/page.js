@@ -4,19 +4,7 @@ import React from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import Navbar from "../components/navbar";
-import { GoogleMap, LoadScript, Autocomplete, Marker } from '@react-google-maps/api';
 
-const mapContainerStyle = {
-  width: '100%',
-  height: '400px', // or any height you need
-};
-
-
-// Define map center position (default center)
-const center = {
-  lat: 9.9312, // Default latitude (Kochi example)
-  lng: 76.2673, // Default longitude (Kochi example)
-};
 
 export default function Home() {
 
@@ -27,10 +15,7 @@ export default function Home() {
   const router = useRouter(); // Step 2: Initialize the router
 
 
-  const [map, setMap] = useState(null);
-  const [position, setPosition] = useState(center);
-  const [autocomplete, setAutocomplete] = useState(null);
-
+  
       const [name, setName] = useState('');
       const [date, setDate] = useState('');
       const [time, setTime] = useState('');
@@ -67,7 +52,7 @@ export default function Home() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ name,date,time,loc,desc }), // Send form data as JSON
+      body: JSON.stringify({ name,date,time,loc,desc,hostname }), // Send form data as JSON
     });
 
     const data = await response.json();
@@ -78,7 +63,7 @@ export default function Home() {
     // Optionally, navigate to another page after successful registration
     if (response.ok) {
       alert("Registered Successfully !")
-      router.push('/'); // Redirect to home page or any other success page
+      router.push(`/hosthome?hostname=${encodeURIComponent(hostname)}`); // Redirect to home page or any other success page
     } else {
       alert('Registration failed: ' + data.message);
     }
@@ -90,27 +75,11 @@ export default function Home() {
   const Home =()=>{
     router.push(`/hosthome?hostname=${encodeURIComponent(hostname)}`);
   }
+  const Discover =()=>{
+    router.push(`/discoverhost?hostname=${encodeURIComponent(hostname)}`);
+  }
   
-  const onLoad = useCallback((autocompleteInstance) => {
-    setAutocomplete(autocompleteInstance);
-  }, []);
-
-  const onPlaceChanged = () => {
-    if (autocomplete !== null) {
-      const place = autocomplete.getPlace();
-      if (place.geometry) {
-        const newPosition = {
-          lat: place.geometry.location.lat(),
-          lng: place.geometry.location.lng(),
-        };
-        setPosition(newPosition);
-        console.log("Selected place:", newPosition);
-      } else {
-        alert("No details available for the selected place.");
-      }
-    }
-  };
-
+  
   
   return (
     //bg-[url('/bg.jpg')]
@@ -122,7 +91,7 @@ export default function Home() {
         <div className="flex items-center gap-4">
         <button onClick={Home}>Home</button>
         <button onClick={feedback}>Feedback</button>
-          <label>Discover</label>
+        <button onClick={Discover}>Discover</button>
         </div>
       </div>
 
@@ -224,30 +193,6 @@ export default function Home() {
               placeholder="Description"
               className=" font-mono px-3 py-2  rounded-2xl shadow-sm focus:outline-none border-hidden bg-inherit placeholder-darkblue border-2 backdrop-blur-0 w-full h-16" onChange={handleDescriptionChange}
             />
-
-        <LoadScript googleMapsApiKey="AIzaSyAD29iSH3YnIj8Ybs3_bzjgUaXd_ThCjYY" libraries={['places']}>
-        <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
-          <input
-            type="text"
-            placeholder="Search for a place"
-            style={{
-              width: '100%',
-              height: '40px',
-              padding: '10px',
-              marginBottom: '10px',
-            }}
-          />
-        </Autocomplete>
-
-        <GoogleMap
-          mapContainerStyle={mapContainerStyle}
-          center={position}
-          zoom={14}
-          onLoad={setMap}
-        >
-          {position && <Marker position={position} />}
-        </GoogleMap>
-      </LoadScript>
           </div>
 
           {/* Price */}

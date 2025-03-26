@@ -58,7 +58,7 @@ export default function HostLogin() {
         if (response.ok) {
           alert(data.message)
           const name=data.hostname
-          router.push(`/hosthome?username=${encodeURIComponent(name)}`); // Redirect to home page or any other success page
+          router.push(`/hosthome?hostname=${encodeURIComponent(name)}`); // Redirect to home page or any other success page
         } else {
           alert('Registration failed: ' + data.message);
         }
