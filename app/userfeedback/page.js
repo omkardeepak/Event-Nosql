@@ -1,9 +1,11 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
-import Router from 'next/router';
+import { useRouter } from 'next/navigation';
 
 const DiscoverPage = () => {
+        const router = useRouter(); // Initialize useRouter
+  
   const [events, setEvents] = useState([]);
   const searchParams = useSearchParams();
   const username = searchParams.get('username');
@@ -14,13 +16,7 @@ const DiscoverPage = () => {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(null);
 
-  const handleProfile = () => {
-    Router.push(`/discoveruser?username=${encodeURIComponent(username)}`);
-  };
 
-  const handleFeedback = () => {
-    Router.push(`/feedback?username=${encodeURIComponent(username)}`);
-  };
 
   const handleSubmit = async () => {
 
@@ -64,16 +60,39 @@ const DiscoverPage = () => {
     }
   };
 
+  const feedback =()=>{
+    router.push(`/userfeedback?username=${encodeURIComponent(username)}`);
+  }
+  const Home =()=>{
+    router.push(`/userhome?username=${encodeURIComponent(username)}`);
+  }
+  const Discover =()=>{
+    router.push(`/discoveruser?username=${encodeURIComponent(username)}`);
+  }
+
   return (
     <div className='bg-neutral-900 h-screen w-full'>
-      <header className="flex justify-between text-white bg-lightblue items-center p-7 border-b h-20 border-gray-700">
-        <nav className="flex space-x-4">
-          <a href="#" className="text-sm font-medium hover:underline">Events</a>
-          <button onClick={handleFeedback} className="text-sm font-medium hover:underline">Feedback</button>
-          <button onClick={handleProfile} className="text-sm font-medium hover:underline">Discover</button>
-        </nav>
-        <a href="/"><button className="text-sm font-medium">Log out</button></a>
-      </header>
+       <nav className="bg-gray-800 text-gray-300 px-6 py-2 flex items-center justify-between">
+      {/* Left Side */}
+      <div className="flex items-center gap-6">
+        <span className="text-gray-200 text-lg">✦</span> {/* Star Icon */}
+        <div className="flex items-center gap-4">
+        <button onClick={Home}>Home</button>
+        <button onClick={feedback}>Feedback</button>
+        <button onClick={Discover}>Discover</button>
+        </div>
+      </div>
+
+      {/* Right Side */}
+      <div className="flex items-center gap-4">
+        <span className="text-sm">9:39 PM GMT+5:30</span>
+        <button className="text-white">Create Event</button>
+        
+       
+        <div className="w-8 h-8 bg-green-300 rounded-full"></div> {/* Profile Icon */}
+      </div>
+    </nav>
+
       <div className='bg-neutral-900 rounded-lg shadow-lg h-full w-full'>
         <div className='flex flex-col items-center'>
           <img

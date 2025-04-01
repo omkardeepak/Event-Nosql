@@ -10,6 +10,8 @@ export default {
     extend: {
       fontFamily: {
         zenDots: ['"Zen Dots"', 'sans-serif'],
+        VT: ['"VT323"', 'system-ui'],
+        press: ['"Press Start 2P"', 'system-ui'],
         Rajdhani: ['"Rajdhani"', 'sans-serif'],
         Orbitron: ['"Orbitron"', 'sans-serif'],
         Goldman:['"Goldman"', 'sans-serif'],

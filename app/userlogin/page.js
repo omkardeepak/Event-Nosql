@@ -56,7 +56,6 @@ export default function UserLogin() {
     
         // Optionally, navigate to another page after successful registration
         if (response.ok) {
-          alert(data.message)
           const name=data.username
           router.push(`/userhome?username=${encodeURIComponent(name)}`); // Redirect to home page or any other success page
         } else {
@@ -65,13 +64,13 @@ export default function UserLogin() {
       };
 
   return (
-    <div className="h-screen w-full flex">
+    <div className="h-screen w-full bg-gradient-to-r from-gray-300 to-white flex">
       {/* Left Half - Text Section */}
-      <div className="w-1/2 flex flex-col items-start justify-center pl-20 bg-pink-100 p-10">
-        <h1 className=" bg-gradient-to-r from-blue-500 text-5xl to-pink-500 bg-clip-text text-transparent bg-clip-next font-extrabold pt-20">Welcome to Eventify..</h1>
+      <div className="w-1/2 flex flex-col items-start justify-center pl-20  p-10">
+        <h1 className=" bg-gradient-to-r from-blue-800 h-52 text-5xl to-blue-500 bg-clip-text text-transparent bg-clip-next font-extrabold pt-20">Welcome to Eventify..</h1>
         <div className="flex flex-col font-extrabold font-serif text-8xl z-20 h-full ">
           
-      <span className="bg-gradient-to-r from-blue-500 text-5xl to-pink-500 bg-clip-text text-transparent bg-clip-next  pt-32">
+      <span className="bg-gradient-to-r   from-green-500 text-7xl to-green-800 bg-clip-text text-transparent bg-clip-next  pt-24">
 
                 <span>Join & </span> <br></br>
                 <span >Explore</span> <br></br>
@@ -82,8 +81,8 @@ export default function UserLogin() {
       </div>
       
       {/* Right Half - Form Section */}
-      <div className="w-1/2 flex items-center justify-center bg-pink-100">
-        <div className="p-8 rounded-lg shadow-lg max-w-md">
+      <div className="w-1/2 flex items-center justify-center ">
+        <div className="p-8 rounded-lg shadow-lg bg-white max-w-md">
           <h2 className="text-2xl font-bold text-center text-gray-800">
             <span className="bg-gradient-to-r from-indigo-500 to-pink-500 text-transparent bg-clip-text">
               {isLogin ? "Login" : "Sign Up"}

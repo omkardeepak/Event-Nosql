@@ -21,6 +21,8 @@ export default function Home() {
       const [time, setTime] = useState('');
       const [loc, setLoc] = useState('');
       const [desc, setDesc] = useState('');
+      const [selectedImage, setSelectedImage] = useState(null);
+
 
       const searchParams = useSearchParams();
       const hostname = searchParams.get('hostname'); 
@@ -44,30 +46,47 @@ export default function Home() {
   const handleDescriptionChange = (e) => {
     setDesc(e.target.value);
   };
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const response = await fetch('/api/eventregister', {  // Make sure your API path is correct (/api/)
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ name,date,time,loc,desc,hostname }), // Send form data as JSON
-    });
-
-    const data = await response.json();
-
-    // Set response message based on the API response
-    console.log(data.message || 'Query was successful!');
-
-    // Optionally, navigate to another page after successful registration
-    if (response.ok) {
-      alert("Registered Successfully !")
-      router.push(`/hosthome?hostname=${encodeURIComponent(hostname)}`); // Redirect to home page or any other success page
-    } else {
-      alert('Registration failed: ' + data.message);
+  const handleImageChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setSelectedImage(e.target.files[0]);
+      // You can preview the image here if needed
     }
   };
+
+  // Trigger file input when div is clicked
+  const handleDivClick = () => {
+    document.getElementById('imageUpload').click();
+  };
+  
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData();
+  formData.append("name", name);
+  formData.append("date", date);
+  formData.append("time", time);
+  formData.append("loc", loc);
+  formData.append("desc", desc);
+  formData.append("hostname", hostname);
+  
+  if (selectedImage) {
+    formData.append("image", selectedImage); // Append image file
+  }
+
+  const response = await fetch("/api/eventregister", {
+    method: "POST",
+    body: formData, // Send FormData instead of JSON
+  });
+
+  const data = await response.json();
+
+  if (response.ok) {
+    alert("Registered Successfully!");
+    router.push(`/hosthome?hostname=${encodeURIComponent(hostname)}`);
+  } else {
+    alert("Registration failed: " + data.message);
+  }
+};
 
   const feedback =()=>{
     router.push(`/hostfeedback?hostname=${encodeURIComponent(hostname)}`);
@@ -129,7 +148,32 @@ export default function Home() {
           
         </div>
         <div className='mb-64 mr-96 -ml-56 mt-56 absolute z-0 rounded-2xl border-2 '>
-            <img src="https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=2,background=white,quality=75,width=400,height=400/gallery-images/te/d1ed5a5c-27b8-4595-8d38-29f48f304991" width={330} height={330} className=' rounded-2xl '></img>
+            <div
+        className="w-64 h-64 border-2 border-dashed border-green-500 rounded-md text-green-600 flex justify-center items-center cursor-pointer"
+        onClick={handleDivClick}
+      >
+        {selectedImage ? (
+          <img
+            src={URL.createObjectURL(selectedImage)}
+            alt="Selected"
+            className="object-cover w-full h-full"
+          />
+        ) : (
+          <p>Click to upload an image</p>
+        )}
+      </div>
+
+      {/* Hidden file input */}
+      <input
+        id="imageUpload"
+        type="file"
+        accept="image/*"
+        style={{ display: 'none' }}
+        onChange={handleImageChange}
+      />
+
+      {/* Upload button */}
+
         </div>
       <div className="max-w-md w-full  p-6 rounded-lg  relative z-10 ml-48  mt- border-none ">
         {/* Form Container */}

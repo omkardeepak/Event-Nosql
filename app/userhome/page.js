@@ -5,6 +5,9 @@ import Navbar from '../components/navbar';
 import { useRouter } from 'next/navigation';
 
 export default function EventsPage() {
+
+
+
       const router = useRouter(); // Initialize useRouter
 
   const [pname, setPname] = useState('');
@@ -67,16 +70,19 @@ const handleFeedback =()=>{
   // Example of fetching events from a database (replace with your fetch logic)
   useEffect(() => {
     async function fetchEvents() {
-      // Replace with your actual API or database fetching logic
-      const response = await fetch('/api/getEvents'); // Sample API call
+      const response = await fetch('/api/getEvents');
       const data = await response.json();
-  // "Event registered successfully"
-      console.log(data.events);      
-      setEvents(data.events);
+
+      if (data.events) {
+        setEvents(data.events); // Set events data including image base64
+      } else {
+        console.error('Error fetching events:', data.error);
+      }
     }
 
     fetchEvents();
   }, []);
+
 
   const [expandedEvent, setExpandedEvent] = useState(null);
 
@@ -119,25 +125,39 @@ const handleFeedback =()=>{
     }
   };
 
+  const feedback =()=>{
+    router.push(`/userfeedback?username=${encodeURIComponent(username)}`);
+  }
+  const Home =()=>{
+    router.push(`/userhome?username=${encodeURIComponent(username)}`);
+  }
+  const Discover =()=>{
+    router.push(`/discoveruser?username=${encodeURIComponent(username)}`);
+  }
+  
     return (
       <div className="min-h-screen bg-neutral-900 text-darkblue">
         
-        <header className="flex justify-between text-white bg-lightblue items-center p-7 border-b  h-20 border-gray-700">
-          <nav className="flex space-x-4 ">
-            <a href="#" className="text-sm font-medium hover:underline">
-              Events
-            </a>
-            <button onClick={handleFeedback}  className="text-sm font-medium hover:underline">
-              Feedback
-            </button>
-            <button onClick={handleProfile}  className="text-sm font-medium hover:underline">
-              Discover
-            </button>
-          </nav>
-          <a href="/">
-          <button className="text-sm font-medium">Log out</button>
-          </a>
-        </header>
+        <nav className="bg-gray-800 text-gray-300 px-6 py-2 flex items-center justify-between">
+      {/* Left Side */}
+      <div className="flex items-center gap-6">
+        <span className="text-gray-200 text-lg">✦</span> {/* Star Icon */}
+        <div className="flex items-center gap-4">
+        <button onClick={Home}>Home</button>
+        <button onClick={feedback}>Feedback</button>
+        <button onClick={Discover}>Discover</button>
+        </div>
+      </div>
+
+      {/* Right Side */}
+      <div className="flex items-center gap-4">
+        <span className="text-sm">9:39 PM GMT+5:30</span>
+        <button className="text-white">Create Event</button>
+        
+       
+        <div className="w-8 h-8 bg-green-300 rounded-full"></div> {/* Profile Icon */}
+      </div>
+    </nav>
         
         <main className="">
   
@@ -178,7 +198,7 @@ const handleFeedback =()=>{
         key={event.event_name}
         className={`w-full h-full transition-all duration-500 ease-in-out ${
           expandedEvent === event.event_name ? 'h-full ' : 'h-72'
-        }  p-3 flex flex-col  bg-neutral-700 rounded-2xl mb-9`}
+        }  p-3 flex flex-col  bg-neutral-700 rounded-2xl mb-9 `}
       >
         <div
           className={`${
@@ -194,9 +214,9 @@ const handleFeedback =()=>{
             <div className="w-full flex flex-col">
               <div className="w-full m-1 rounded-lg">
                 <div className="text-white flex flex-row items-center">
-                <div className="mr-3 w-10 h-10">
+                <div className="mr-3 w-7 h-7">
                     {/* Time Icon */}
-                    <img src="https://img.freepik.com/free-vector/calendar-remider-date-isolated-icon_24877-83379.jpg?semt=ais_hybrid"></img>
+                    <img src="https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678116-calendar-512.png"></img>
 
                   </div>
                   
@@ -214,19 +234,19 @@ const handleFeedback =()=>{
 
               <div className="w-full m-1 rounded-lg">
                 <p className="text-white flex flex-row items-center">
-                  <div className="mr-3 w-10 h-10">
+                  <div className="mr-3 w-7 h-7">
                     {/* Time Icon */}
                     <img src="https://img.icons8.com/ios11/512/FFFFFF/clock.png"></img>
 
                   </div>
-                  {event.time.slice(0, 5)}
-                </p>
+                  {event.time && typeof event.time === 'string' ? event.time.slice(0, 5) : 'N/A'}
+                  </p>
               </div>
             </div>
 
             <div className="w-full m-1 rounded-lg">
               <p className="text-white flex flex-row items-center">
-                <div className="mr-2 w-10 h-10">
+                <div className="mr-2 w-7 h-7">
                   {/* Location Icon */}
                   <img src="https://cdn2.iconfinder.com/data/icons/social-media-2259/512/google-512.png"></img>
                 </div>
@@ -237,7 +257,15 @@ const handleFeedback =()=>{
 
           {/* Right Side */}
           <div className="w-1/2 right-0 flex flex-col items-center space-y-4">
-            <div className="w-full h-4/5 bg-gray-200"></div>
+            <div className="w-full h-4/5 ">{event.imageBase64 ? (
+              <img
+                src={`data:image/jpeg;base64,${event.imageBase64}`} // Display image from base64 string
+                alt={event.event_name}
+                className="event-image"
+              />
+            ) : (
+              <p>No image available</p>
+            )}</div>
             <button
               className="bg-yellow-600 text-white rounded-full p-2 flex flex-row hover:scale-105"
               onClick={() => handleViewMore(event.event_name)}
@@ -248,7 +276,8 @@ const handleFeedback =()=>{
         </div>
 
         {/* Expanded Content in Modal */}
-        {expandedEvent === event.event_name && (
+{/* Expanded Content in Modal */}
+{expandedEvent !== null && (
   <div
     className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50"
     onClick={() => setExpandedEvent(null)} // Close the modal when clicking outside
@@ -267,14 +296,17 @@ const handleFeedback =()=>{
       <div className="rounded-lg grid grid-cols-1 md:grid-cols-2 gap-8 h-full w-full bg-transparent">
         {/* Left Section */}
         <div className="overflow-y-auto max-h-[60vh]">
-          <img className="w-full h-40 object-cover mb-4" alt="Event" />
-          <h2 className="text-lg font-semibold m-4 text-black">{event.event_name}</h2>
+        {event.imageBase64 ? (
+              <img
+                src={`data:image/jpeg;base64,${event.imageBase64}`} // Display image from base64 string
+                alt={event.event_name}
+                className="event-image"
+              />
+            ) : (
+              <p>No image available</p>
+            )}          <h2 className="text-lg font-semibold m-4 text-black">{expandedEvent}</h2>
           <p className="text-neutral-700 m-4">
-            Join us for an exciting Hackathon where creativity meets technology! This event
-            is designed to bring together tech enthusiasts, developers, and innovators to
-            build solutions that can shape the future. Whether you're a beginner or an
-            experienced coder, this Hackathon is the perfect platform to showcase your
-            skills.
+            {event.desc}
           </p>
         </div>
 
@@ -291,27 +323,24 @@ const handleFeedback =()=>{
                 onChange={handlePnameChange}
               />
               <br />
-              <div>
-                <input
-                  type="email"
-                  placeholder="Email"
-                  className="mt-1 input-field bg-gray-100 rounded-lg h-8 text-black px-3 w-full"
-                  onChange={handleEmailChange}
-                  value={email}
-                />
-                {emailError && <p className="text-red-500 text-sm -mb-2">{emailError}</p>}
-              </div>
+              <input
+                type="email"
+                placeholder="Email"
+                className="mt-1 input-field bg-gray-100 rounded-lg h-8 text-black px-3 w-full"
+                onChange={handleEmailChange}
+                value={email}
+              />
+              {emailError && <p className="text-red-500 text-sm -mb-2">{emailError}</p>}
               <br />
-              <div className="mb-7">
-                <input
-                  type="tel"
-                  placeholder="Phone number"
-                  className="mt-1 input-field bg-gray-100 rounded-lg h-8 text-black px-3 w-full"
-                  onChange={handleMobnoChange}
-                  value={mobno}
-                />
-                {phoneError && <p className="text-red-500 -mb-2">{phoneError}</p>}
-              </div>
+              <input
+                type="tel"
+                placeholder="Phone number"
+                className="mt-1 input-field bg-gray-100 rounded-lg h-8 text-black px-3 w-full"
+                onChange={handleMobnoChange}
+                value={mobno}
+              />
+              {phoneError && <p className="text-red-500 -mb-2">{phoneError}</p>}
+              <br />
               <input
                 type="text"
                 placeholder="LinkedIn ID"
@@ -319,7 +348,7 @@ const handleFeedback =()=>{
                 value={linkedin}
                 onChange={handleLinkedinChange}
               />
-              <input type="hidden" name="event_name" value={event.event_name} />
+              <input type="hidden" name="event_name" value={expandedEvent} />
             </div>
             <button className="bg-black text-white py-2 mt-3 w-64 rounded-lg" type="submit">
               Register
@@ -330,6 +359,7 @@ const handleFeedback =()=>{
     </div>
   </div>
 )}
+
 
 
       </div>
