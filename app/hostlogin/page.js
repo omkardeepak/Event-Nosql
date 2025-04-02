@@ -67,11 +67,14 @@ export default function HostLogin() {
     <div className="h-screen w-full flex">
       {/* Left Half - Text Section */}
       <div className="w-1/2 flex flex-col items-start justify-center pl-20 bg-blue-100 p-10">
-        <h1 className="bg-gradient-to-r  from-blue-500 text-5xl to-pink-500 bg-clip-text text-transparent font-extrabold pt-20">
+      <div className="w-1/2 h-full absolute left-0 z-10 bg-opacity-10 bg-black"></div>
+
+      <img className="w-1/2 h-full z-0 inset-0 absolute" src="https://plus.unsplash.com/premium_photo-1681487814165-018814e29155?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bG9naW58ZW58MHx8MHx8fDA%3D"></img>
+        <h1 className="bg-gradient-to-r  from-white text-5xl to-white bg-clip-text text-transparent font-extrabold pt-16">
           Welcome to Eventify..
         </h1>
-        <div className="flex flex-col font-extrabold font-serif text-8xl z-20 h-full">
-          <span className="bg-gradient-to-r from-blue-500 text-5xl to-pink-500 bg-clip-text text-transparent pt-32">
+        <div className="flex flex-col font-extrabold font-serif text-8xl z-20 h-full ">
+          <span className="bg-gradient-to-r from-black text-6xl to-black bg-clip-text text-transparent pt-32">
             <span>Host & </span> <br />
             <span>Manage</span> <br />
             <span>Your Events</span>

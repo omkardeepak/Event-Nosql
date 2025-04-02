@@ -5,7 +5,25 @@ import { useRouter } from 'next/navigation';
 
 const DiscoverPage = () => {
         const router = useRouter(); // Initialize useRouter
-  
+  const [currentTime, setCurrentTime] = useState('');
+        
+          useEffect(() => {
+            const updateTime = () => {
+              const now = new Date();
+              const timeString = now.toLocaleTimeString('en-US', {
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true
+              });
+              setCurrentTime(`${timeString} `);
+            };
+        
+            updateTime();
+            const interval = setInterval(updateTime, 1000);
+        
+            return () => clearInterval(interval);
+          }, []);
+    
   const [events, setEvents] = useState([]);
   const searchParams = useSearchParams();
   const username = searchParams.get('username');
@@ -85,7 +103,7 @@ const DiscoverPage = () => {
 
       {/* Right Side */}
       <div className="flex items-center gap-4">
-        <span className="text-sm">9:39 PM GMT+5:30</span>
+        <span className="text-sm">{currentTime}</span>
         <button className="text-white">Create Event</button>
         
        

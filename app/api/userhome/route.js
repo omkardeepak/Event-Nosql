@@ -49,10 +49,11 @@ export async function POST(req) {
       subject: `Registration Confirmation for ${event}`,
       html: `
         <h1>Get Ready! 🎉 You’re Invited to ${event}</h1>
-        <p>Guess what?! We’re throwing an amazing event, and you’re officially on the cool people list (it’s exclusive, trust us 😉). We’re talking about ${event} a flagship ${des} Happening on ${date}. Mark your calendar, because you won’t want to miss this!</p>
+        <p>Guess what?! We’re throwing an amazing event, and you’re officially on the cool people list (it’s exclusive, trust us 😉). We’re talking about ${event} a flagship ${des} Happening on ${date.toDateString()}. Mark your calendar, because you won’t want to miss this!</p>
         <br></br>
         <p>Event: <strong>${event}</strong></p>
-        <p>Date: ${date}</p>
+        <p>Date: ${date.toDateString()}</p>
+        <p>Time: ${time}</p>
         <p>Location: ${loc}</p>
         <p> 🎟 We look forward to seeing you there!</p>
       `

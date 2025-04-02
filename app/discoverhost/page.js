@@ -5,7 +5,24 @@ import { useSearchParams,useRouter } from 'next/navigation';
 
 const DiscoverPage = () => {
 const router = useRouter(); // Step 2: Initialize the router
-    
+    const [currentTime, setCurrentTime] = useState('');
+      
+        useEffect(() => {
+          const updateTime = () => {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', {
+              hour: 'numeric',
+              minute: '2-digit',
+              hour12: true
+            });
+            setCurrentTime(`${timeString} `);
+          };
+      
+          updateTime();
+          const interval = setInterval(updateTime, 1000);
+      
+          return () => clearInterval(interval);
+        }, []);
 
   const [events, setEvents] = useState([]); // Initialize events as an empty array
   const searchParams = useSearchParams();
@@ -55,7 +72,7 @@ const router = useRouter(); // Step 2: Initialize the router
 
       {/* Right Side */}
       <div className="flex items-center gap-4">
-        <span className="text-sm">9:39 PM GMT+5:30</span>
+        <span className="text-sm">{currentTime}</span>
         <button className="text-white">Create Event</button>
         
        
@@ -75,19 +92,20 @@ const router = useRouter(); // Step 2: Initialize the router
           <h2 className='text-2xl font-bold text-gray-800 hover:text-blue-600 cursor-pointer transition-colors'>
             {hostname}
           </h2>
-          <h3 className="text-gray-800 text-3xl left-16 absolute top-52 mt-12">Registered Events:</h3>
+          <h3 className="text-gray-800 text-3xl left-16 absolute top-52 mt-12">Registered Participants:</h3>
 
           {/* Display the event data */}
-          <div className='mt-16 w-1/2 px-4'>
+          <div className='mt-32 w-1/2 px-4'>
             {events && events.length > 0 ? ( // Add a check for events
               <div className="overflow-x-auto">
-              <table className="table-auto w-full text-left bg-darkblue text-white">
+              <table className="table-auto w-full text-left bg-neutral-200 text-black">
                 <thead>
                   <tr className="border-b border-gray-700">
                     <th className="px-4 py-2">Participant Name</th>
                     <th className="px-4 py-2">Event</th>
                     <th className="px-4 py-2">Email ID</th>
                     <th className="px-4 py-2">Mobile No</th>
+                    <br></br>
                   </tr>
                 </thead>
                 <tbody>

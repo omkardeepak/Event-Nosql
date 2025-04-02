@@ -67,10 +67,12 @@ export default function UserLogin() {
     <div className="h-screen w-full bg-gradient-to-r from-gray-300 to-white flex">
       {/* Left Half - Text Section */}
       <div className="w-1/2 flex flex-col items-start justify-center pl-20  p-10">
+      <div className="w-1/2 h-full absolute left-0 z-10 bg-opacity-10 bg-black"></div>
+      <img className="w-1/2 h-full z-0 inset-0 absolute" src="https://img.freepik.com/premium-vector/user-security-login-smartphone-password-lock-icon-verification-checkmark-3d-vector_288819-477.jpg?semt=ais_hybrid"></img>
         <h1 className=" bg-gradient-to-r from-blue-800 h-52 text-5xl to-blue-500 bg-clip-text text-transparent bg-clip-next font-extrabold pt-20">Welcome to Eventify..</h1>
         <div className="flex flex-col font-extrabold font-serif text-8xl z-20 h-full ">
           
-      <span className="bg-gradient-to-r   from-green-500 text-7xl to-green-800 bg-clip-text text-transparent bg-clip-next  pt-24">
+      <span className="bg-gradient-to-r   from-black text-7xl to-black bg-clip-text text-transparent bg-clip-next  pt-12">
 
                 <span>Join & </span> <br></br>
                 <span >Explore</span> <br></br>

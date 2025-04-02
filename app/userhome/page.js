@@ -124,6 +124,25 @@ const handleFeedback =()=>{
       alert('Registration failed: ' + data.message);
     }
   };
+  const [currentTime, setCurrentTime] = useState('');
+        
+          useEffect(() => {
+            const updateTime = () => {
+              const now = new Date();
+              const timeString = now.toLocaleTimeString('en-US', {
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true
+              });
+              setCurrentTime(`${timeString} `);
+            };
+        
+            updateTime();
+            const interval = setInterval(updateTime, 1000);
+        
+            return () => clearInterval(interval);
+          }, []);
+    
 
   const feedback =()=>{
     router.push(`/userfeedback?username=${encodeURIComponent(username)}`);
@@ -151,7 +170,7 @@ const handleFeedback =()=>{
 
       {/* Right Side */}
       <div className="flex items-center gap-4">
-        <span className="text-sm">9:39 PM GMT+5:30</span>
+        <span className="text-sm">{currentTime}</span>
         <button className="text-white">Create Event</button>
         
        
@@ -283,7 +302,7 @@ const handleFeedback =()=>{
     onClick={() => setExpandedEvent(null)} // Close the modal when clicking outside
   >
     <div
-      className="bg-white w-11/12 md:w-3/5 rounded-lg p-6 relative max-h-[90vh] overflow-y-auto"
+      className="bg-gray-200 w-11/12 md:w-3/5 rounded-lg p-6 relative max-h-[90vh] overflow-y-auto"
       onClick={(e) => e.stopPropagation()} // Prevent modal close on content click
     >
       <button

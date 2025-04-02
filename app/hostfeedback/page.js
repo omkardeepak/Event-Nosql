@@ -5,6 +5,24 @@ import { useSearchParams } from 'next/navigation';
 
 const DiscoverPage = () => {
     const router = useRouter(); // Step 2: Initialize the router
+    const [currentTime, setCurrentTime] = useState('');
+      
+        useEffect(() => {
+          const updateTime = () => {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', {
+              hour: 'numeric',
+              minute: '2-digit',
+              hour12: true
+            });
+            setCurrentTime(`${timeString} `);
+          };
+      
+          updateTime();
+          const interval = setInterval(updateTime, 1000);
+      
+          return () => clearInterval(interval);
+        }, []);
   
   const [feedbacks, setFeedbacks] = useState([]); // Renamed to feedbacks for clarity
   const searchParams = useSearchParams();
@@ -33,6 +51,9 @@ const DiscoverPage = () => {
   const Home =()=>{
     router.push(`/hosthome?hostname=${encodeURIComponent(hostname)}`);
   }
+  const Discover =()=>{
+    router.push(`/discoverhost?hostname=${encodeURIComponent(hostname)}`);
+  }
   return (
     <div className='bg-gray-200 h-screen w-full'>
 <nav className="bg-gray-800 text-gray-300 px-6 py-2 flex items-center justify-between">
@@ -42,13 +63,13 @@ const DiscoverPage = () => {
         <div className="flex items-center gap-4">
           <button onClick={Home}>Home</button>
           <button >Feedback</button>
-          <label>Discover</label>
+          <button onClick={Discover}>Discover</button>
         </div>
       </div>
 
       {/* Right Side */}
       <div className="flex items-center gap-4">
-        <span className="text-sm">9:39 PM GMT+5:30</span>
+        <span className="text-sm">{currentTime}</span>
         <button className="text-white">Create Event</button>
         
        

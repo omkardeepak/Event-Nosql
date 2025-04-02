@@ -1,14 +1,33 @@
 'use client';
-import { useState,useCallback } from "react";
+import { useState,useCallback,useRef,useEffect } from "react";
 import React from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import Navbar from "../components/navbar";
+import confetti from 'canvas-confetti';
 
 
 export default function Home() {
+  const confettiRef = useRef(null);
 
-
+    const [currentTime, setCurrentTime] = useState('');
+  
+    useEffect(() => {
+      const updateTime = () => {
+        const now = new Date();
+        const timeString = now.toLocaleTimeString('en-US', {
+          hour: 'numeric',
+          minute: '2-digit',
+          hour12: true
+        });
+        setCurrentTime(`${timeString} `);
+      };
+  
+      updateTime();
+      const interval = setInterval(updateTime, 1000);
+  
+      return () => clearInterval(interval);
+    }, []);
   // Load Google Maps script
   
 
@@ -97,7 +116,35 @@ const handleSubmit = async (e) => {
   const Discover =()=>{
     router.push(`/discoverhost?hostname=${encodeURIComponent(hostname)}`);
   }
-  
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          // Trigger the confetti when the div is visible
+          confetti({
+            particleCount: 350,
+            spread: 350,
+            origin: { y: 0.4 },
+            colors: ['#08467f', '#FF0303'], // Customize confetti colors
+          });
+        }
+      },
+      {
+        threshold: 0.5, // Trigger when 50% of the div is visible
+      }
+    );
+
+    if (confettiRef.current) {
+      observer.observe(confettiRef.current);
+    }
+
+    // Cleanup observer on unmount
+    return () => {
+      if (confettiRef.current) {
+        observer.unobserve(confettiRef.current);
+      }
+    };
+  }, []);
   
   
   return (
@@ -116,7 +163,7 @@ const handleSubmit = async (e) => {
 
       {/* Right Side */}
       <div className="flex items-center gap-4">
-        <span className="text-sm">9:39 PM GMT+5:30</span>
+        <span className="text-sm">{currentTime}</span>
         <button className="text-white">Create Event</button>
         
        
@@ -129,13 +176,31 @@ const handleSubmit = async (e) => {
       </div> */}
 
 
-    <div className='flex flex-col items-center justify-center h-screen  p-6'>
-      <div className=''>
-        <div className='text-center p-8'>
-          <h1 className='text-2xl font-bold text-gray-800 mb-6'>Kickstart your event journey—Create and manage your event effortlessly!</h1>
-          <a href="#create" className='px-6 py-3 bg-indigo-600 text-white text-lg rounded-xl hover:bg-indigo-500'>
+    <div className='flex flex-col items-center justify-center h-screen  ' >
+    <div className="z-40 absolute justify-center w-full h-72 items-center">
+  <h1 className='text-4xl text-justify  font-bold text-gray-800 top-10 z-40 justify-center flex'>Kickstart your event journey—Create and manage your event effortlessly!</h1>
+  <div className="w-full ml-[670px] mt-[100px]">
+          <a href="#create" className='px-6 py-3 bg-indigo-600 text-white text-lg w-full rounded-xl hover:bg-indigo-500'>
             + Create Event
           </a>
+          </div>
+          </div>
+
+      <div className=''>
+        <div className='text-center '>
+        
+          
+          <div className="w-screen h-screen">
+          <video
+    src="/host.mp4"
+    autoPlay
+    loop
+    muted
+    className="h-full w-full object-cover object-top z-0 "
+  ></video>
+ 
+  </div>
+ 
         </div>
       </div>
     </div>
@@ -143,7 +208,7 @@ const handleSubmit = async (e) => {
 
       
     
-     <div className="relative min-h-screen  flex justify-center items-center  z-0  " id="create" >
+     <div className="relative min-h-screen bg-[#d2d2d2]  flex justify-center items-center  z-0  " id="create" ref={confettiRef}>
         <div>
           
         </div>
