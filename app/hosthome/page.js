@@ -116,6 +116,9 @@ const handleSubmit = async (e) => {
   const Discover =()=>{
     router.push(`/discoverhost?hostname=${encodeURIComponent(hostname)}`);
   }
+  const Events =()=>{
+    router.push(`/hostevents?hostname=${encodeURIComponent(hostname)}`);
+  }
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -158,13 +161,14 @@ const handleSubmit = async (e) => {
         <button onClick={Home}>Home</button>
         <button onClick={feedback}>Feedback</button>
         <button onClick={Discover}>Discover</button>
+        <button onClick={Events}>View events</button>
+
         </div>
       </div>
 
       {/* Right Side */}
       <div className="flex items-center gap-4">
         <span className="text-sm">{currentTime}</span>
-        <button className="text-white">Create Event</button>
         
        
         <div className="w-8 h-8 bg-green-300 rounded-full"></div> {/* Profile Icon */}
@@ -208,7 +212,7 @@ const handleSubmit = async (e) => {
 
       
     
-     <div className="relative min-h-screen bg-[#d2d2d2]  flex justify-center items-center  z-0  " id="create" ref={confettiRef}>
+     <div className="relative min-h-screen bg-[#d2d2d2]  flex justify-center items-center  z-0  " id="create" >
         <div>
           
         </div>

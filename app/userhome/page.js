@@ -1,11 +1,13 @@
 "use client"
-import { useState, useEffect } from 'react';
+import { useState, useEffect,useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Navbar from '../components/navbar';
 import { useRouter } from 'next/navigation';
+import confetti from 'canvas-confetti';
 
 export default function EventsPage() {
 
+  const confettiRef = useRef(null);
 
 
       const router = useRouter(); // Initialize useRouter
@@ -99,6 +101,7 @@ const handleFeedback =()=>{
 
   const handleRegistration = async (e) => {
     e.preventDefault();
+    triggerConfetti();
     const formData = new FormData(e.target);
 
     const event = formData.get('event_name'); // Access hidden input value
@@ -154,6 +157,17 @@ const handleFeedback =()=>{
     router.push(`/discoveruser?username=${encodeURIComponent(username)}`);
   }
   
+  const triggerConfetti = () => {
+    
+      confetti({
+        particleCount: 350,
+        spread: 350,
+        origin: { y: 0.4 },
+        colors: ["#08467f", "#FF0303"],
+      });
+    
+  };
+
     return (
       <div className="min-h-screen bg-neutral-900 text-darkblue">
         
@@ -171,7 +185,6 @@ const handleFeedback =()=>{
       {/* Right Side */}
       <div className="flex items-center gap-4">
         <span className="text-sm">{currentTime}</span>
-        <button className="text-white">Create Event</button>
         
        
         <div className="w-8 h-8 bg-green-300 rounded-full"></div> {/* Profile Icon */}
@@ -199,7 +212,7 @@ const handleFeedback =()=>{
 
 
 
-</span><div className='absolute bottom-7'><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
+</span><div className='absolute bottom-7'><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" className="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
   <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293z"/>
 </svg></div></div>
   
@@ -252,25 +265,25 @@ const handleFeedback =()=>{
               </div>
 
               <div className="w-full m-1 rounded-lg">
-                <p className="text-white flex flex-row items-center">
+                <div className="text-white flex flex-row items-center">
                   <div className="mr-3 w-7 h-7">
                     {/* Time Icon */}
                     <img src="https://img.icons8.com/ios11/512/FFFFFF/clock.png"></img>
 
                   </div>
                   {event.time && typeof event.time === 'string' ? event.time.slice(0, 5) : 'N/A'}
-                  </p>
+                  </div>
               </div>
             </div>
 
             <div className="w-full m-1 rounded-lg">
-              <p className="text-white flex flex-row items-center">
+              <div className="text-white flex flex-row items-center">
                 <div className="mr-2 w-7 h-7">
                   {/* Location Icon */}
                   <img src="https://cdn2.iconfinder.com/data/icons/social-media-2259/512/google-512.png"></img>
                 </div>
                 {event.loc}
-              </p>
+              </div>
             </div>
           </div>
 
@@ -302,11 +315,11 @@ const handleFeedback =()=>{
     onClick={() => setExpandedEvent(null)} // Close the modal when clicking outside
   >
     <div
-      className="bg-gray-200 w-11/12 md:w-3/5 rounded-lg p-6 relative max-h-[90vh] overflow-y-auto"
+      className="bg-gray-100 w-11/12 h-1/2 md:w-3/5 rounded-lg p-6 relative overflow-y-auto"
       onClick={(e) => e.stopPropagation()} // Prevent modal close on content click
     >
       <button
-        className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-2"
+        className="absolute top-2 right-2 bg-red-500 h-7 w-7 text-white rounded-full "
         onClick={() => setExpandedEvent(null)}
       >
         X
@@ -369,7 +382,7 @@ const handleFeedback =()=>{
               />
               <input type="hidden" name="event_name" value={expandedEvent} />
             </div>
-            <button className="bg-black text-white py-2 mt-3 w-64 rounded-lg" type="submit">
+            <button className="bg-black text-white py-2 mt-3 w-64 rounded-lg" type="submit" onClick={triggerConfetti}>
               Register
             </button>
           </form>
@@ -384,8 +397,10 @@ const handleFeedback =()=>{
       </div>
     ))
   ) : (
-    <p>No events available at the moment.</p>
-  )}
+    <div className="flex justify-center items-center h-20">
+       <p className="text-white">Loading events...</p>
+      <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+    </div>  )}
 </div>
 
       </div>

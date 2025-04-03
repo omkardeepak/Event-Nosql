@@ -77,7 +77,6 @@ const DiscoverPage = () => {
       {/* Right Side */}
       <div className="flex items-center gap-4">
         <span className="text-sm">{currentTime}</span>
-        <button className="text-white">Create Event</button>
         
        
         <div className="w-8 h-8 bg-green-300 rounded-full"></div> {/* Profile Icon */}

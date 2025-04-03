@@ -54,6 +54,9 @@ const DiscoverPage = () => {
   const Discover =()=>{
     router.push(`/discoverhost?hostname=${encodeURIComponent(hostname)}`);
   }
+  const Events =()=>{
+    router.push(`/hostevents?hostname=${encodeURIComponent(hostname)}`);
+  }
   return (
     <div className='bg-gray-200 h-screen w-full'>
 <nav className="bg-gray-800 text-gray-300 px-6 py-2 flex items-center justify-between">
@@ -64,13 +67,14 @@ const DiscoverPage = () => {
           <button onClick={Home}>Home</button>
           <button >Feedback</button>
           <button onClick={Discover}>Discover</button>
+          <button onClick={Events}>View events</button>
+
         </div>
       </div>
 
       {/* Right Side */}
       <div className="flex items-center gap-4">
         <span className="text-sm">{currentTime}</span>
-        <button className="text-white">Create Event</button>
         
        
         <div className="w-8 h-8 bg-green-300 rounded-full"></div> {/* Profile Icon */}
@@ -137,7 +141,10 @@ const DiscoverPage = () => {
                 ))}
               </ul>
             ) : (
-              <p className='text-gray-100'>No feedback found for this host.</p>
+              <div className="flex justify-center items-center h-20">
+       <p className="text-black">Loading ...</p>
+      <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+    </div>
             )}
           </div>
         

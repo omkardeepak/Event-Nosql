@@ -6,8 +6,11 @@ export async function GET(req) {
     const { db } = await connectToDatabase();
 
     // Fetch all events from the 'events' collection
-    const events = await db.collection('events').find().toArray();
+    const today = new Date().toISOString().split("T")[0]; // Get today's date as "YYYY-MM-DD"
 
+    const events = await db.collection("events").find({
+      date: { $gt: today } // Compare as strings
+    }).toArray();
     if (events.length === 0) {
       return new Response(JSON.stringify({ error: 'No events found' }), { status: 404 });
     }

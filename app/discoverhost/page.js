@@ -56,6 +56,9 @@ const router = useRouter(); // Step 2: Initialize the router
   const Discover =()=>{
     router.push(`/discoverhost?hostname=${encodeURIComponent(hostname)}`);
   }
+  const Events =()=>{
+    router.push(`/hostevents?hostname=${encodeURIComponent(hostname)}`);
+  }
 
   return (
     <div className='bg-neutral-200 h-screen w-full'>
@@ -67,13 +70,14 @@ const router = useRouter(); // Step 2: Initialize the router
         <button onClick={Home}>Home</button>
         <button onClick={feedback}>Feedback</button>
         <button onClick={Discover}>Discover</button>
+        <button onClick={Events}>View events</button>
+
         </div>
       </div>
 
       {/* Right Side */}
       <div className="flex items-center gap-4">
         <span className="text-sm">{currentTime}</span>
-        <button className="text-white">Create Event</button>
         
        
         <div className="w-8 h-8 bg-green-300 rounded-full"></div> {/* Profile Icon */}
